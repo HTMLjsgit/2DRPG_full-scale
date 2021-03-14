@@ -17,7 +17,7 @@ public class GameManagerScript : MonoBehaviour
     public List<float> Defense = new List<float>();
     public List<Sprite> Image = new List<Sprite>();
     public static GameManagerScript gameManager;
-    public List<string> wanna_enemy_names = new List<string>();
+    public List<GameObject> wanna_destroy_enemy = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
@@ -45,9 +45,9 @@ public class GameManagerScript : MonoBehaviour
         }
         else if(nextScene.name == "Map1")
         {
-            for(int i = 0; i < wanna_enemy_names.Count; i++)
+            foreach(GameObject g in wanna_destroy_enemy)
             {
-                Destroy(GameObject.Find(wanna_enemy_names[i]));
+                Destroy(g);
             }
         }
     }

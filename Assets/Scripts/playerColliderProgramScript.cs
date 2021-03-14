@@ -13,12 +13,10 @@ public class playerColliderProgramScript : MonoBehaviour
     void Start()
     {
         gameManager = GameManagerScript.gameManager;
-
     }
 
     private void Awake()
     {
-        Debug.Log("testestetestesteststeststesetstesetstsetse" + name);
     }
 
     // Update is called once per frame
@@ -33,10 +31,7 @@ public class playerColliderProgramScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("enemy"))
         {
-            Debug.Log(gameManager);
             EnemyFightSetScript enemy_set_script = collision.gameObject.transform.GetChild(0).gameObject.GetComponent<EnemyFightSetScript>();
-            Debug.Log(enemy_set_script.Defense[0]);
-            Debug.Log(enemy_set_script.EnemyName[0]);
             for(int i = 0; i < enemy_set_script.EnemyName.Length; i++)
             {
                 gameManager.Name.Add(enemy_set_script.EnemyName[i]);
@@ -45,7 +40,8 @@ public class playerColliderProgramScript : MonoBehaviour
                 gameManager.Image.Add(enemy_set_script.Image[i]);
                 gameManager.HP.Add(enemy_set_script.HP[i]);
             }
-            gameManager.wanna_enemy_names.Add(collision.gameObject.name);
+            Debug.Log(collision.gameObject);
+            gameManager.wanna_destroy_enemy.Add(collision.gameObject);
             Destroy(collision.gameObject);
             SceneManager.LoadScene("FightScene");
             col = true;
