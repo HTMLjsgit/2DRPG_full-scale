@@ -10,19 +10,24 @@ public class GameManagerScript : MonoBehaviour
     public string SceneName;
     GameObject enemy;
     PlayerGetScript player;
-    public GameObject EnemySave;
+    public string SceneNameBefore;
+
+    //戦闘シーン用
     public List<string> Name = new List<string>();
     public List<float> HP = new List<float>();
     public List<float> Attack = new List<float>();
     public List<float> Defense = new List<float>();
     public List<Sprite> Image = new List<Sprite>();
     public static GameManagerScript gameManager;
-    public List<GameObject> wanna_destroy_enemy = new List<GameObject>();
+    public List<string> wanna_destroy_enemy = new List<string>();
+    public Dictionary<string, string> dictionary = new Dictionary<string, string>();
     // Start is called before the first frame update
     void Start()
     {
+        SceneManager.sceneUnloaded += SceneUnloaded;
         SceneManager.sceneLoaded += SceneLoaded;
         player = PlayerGetScript.player_get;
+        SceneName = SceneManager.GetActiveScene().name;
     }
 
     private void Awake()
@@ -34,6 +39,10 @@ public class GameManagerScript : MonoBehaviour
     void Update()
     {
     }
+    void SceneUnloaded(Scene beforeScene)
+    {
+        SceneNameBefore = beforeScene.name;
+    }
 
     void SceneLoaded(Scene nextScene, LoadSceneMode mode)
     {
@@ -41,14 +50,20 @@ public class GameManagerScript : MonoBehaviour
 
         if (nextScene.name == "FightScene")
         {
-            FightEnemyCreate.fight_enemy_create.Create(this);
         }
         else if(nextScene.name == "Map1")
         {
-            foreach(GameObject g in wanna_destroy_enemy)
+            foreach(string wannna_destroy_name in wanna_destroy_enemy)
             {
-                Destroy(g);
+                foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("enemy"))
+                {
+                    if(wannna_destroy_name == enemy.GetComponent<EnemyNameSet>().Name)
+                    {
+                        Destroy(enemy);
+                    }
+                }
             }
+
         }
     }
 }

@@ -4,26 +4,35 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SceneMove : MonoBehaviour
 {
+    public static SceneMove sceneMove;
+    GameManagerScript gameManager;
+    GameObject Target;
     // Start is called before the first frame update
     void Start()
     {
-        
+        Target = GameObject.FindGameObjectWithTag("Player");
+        Target.SetActive(false);
     }
+    private void Awake()
+    {
 
+        sceneMove = this;
+    }
     // Update is called once per frame
     void Update()
     {
         
     }
 
-    public void OnClick()
-    {
-        GameManagerScript.gameManager.Name.Clear();
-        GameManagerScript.gameManager.HP.Clear();
-        GameManagerScript.gameManager.Attack.Clear();
-        GameManagerScript.gameManager.Defense.Clear();
-        GameManagerScript.gameManager.Image.Clear();
 
-        SceneManager.LoadScene("Map1");
+    public void MoveToBackScene(string SceneName)
+    {
+        gameManager.Name.Clear();
+        gameManager.HP.Clear();
+        gameManager.Attack.Clear();
+        gameManager.Defense.Clear();
+        gameManager.Image.Clear();
+        Target.SetActive(true);
+        SceneManager.LoadScene(SceneName);
     }
 }

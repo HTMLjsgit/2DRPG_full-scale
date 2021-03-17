@@ -17,7 +17,7 @@ public class EnemyNameSet : MonoBehaviour
     {
         enemy_set_name = this;
         name += SceneManager.GetActiveScene().name;
-
+        Name = name;
     }
 
     // Update is called once per frame

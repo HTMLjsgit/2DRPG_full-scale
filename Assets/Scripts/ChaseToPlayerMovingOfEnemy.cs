@@ -20,11 +20,11 @@ public class ChaseToPlayerMovingOfEnemy : MonoBehaviour
         anim = GetComponent<Animator>();
        // Target = PlayerGetScript.player_get.gameObject;
         SceneManager.sceneLoaded += SceneLoaded;
+        Target = GameObject.FindGameObjectWithTag("Player").gameObject;
     }
     private void Awake()
     {
         chase = this;
-        Target = GameObject.FindGameObjectWithTag("Player").gameObject;
 
     }
     // Update is called once per frame
