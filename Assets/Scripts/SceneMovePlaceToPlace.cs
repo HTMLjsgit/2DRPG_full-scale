@@ -24,6 +24,7 @@ public class SceneMovePlaceToPlace : MonoBehaviour
         {
             if (Input.GetKeyDown(enter))
             {
+                Debug.Log("ttttttttttttttttttttttttttttttttttttttttttttttttttt");
                 SceneManager.sceneLoaded += SceneLoaded;
 
                 SceneManager.LoadScene(ToMoveScene);

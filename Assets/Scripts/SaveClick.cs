@@ -28,6 +28,7 @@ public class SaveClick : MonoBehaviour
     void SceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Destroy(GameObject.FindGameObjectWithTag("ObjectsGames"));
+        SceneManager.sceneLoaded -= SceneLoaded;
     }
     // Update is called once per frame
     void Update()
