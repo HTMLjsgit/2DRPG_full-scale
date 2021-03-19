@@ -16,7 +16,6 @@ public class BattleManagerScript : MonoBehaviour
 
         FightEnemyCreate.fight_enemy_create.Create(game_manager_script);
 
-        Debug.Log(game_manager_script);
         foreach (Transform t in FightEnemyCreate.fight_enemy_create.GetComponentInChildren<Transform>())
         {
 
@@ -36,8 +35,18 @@ public class BattleManagerScript : MonoBehaviour
     {
         if (player_die == false)
         {
+            //敵が全滅したとき。
+            game_manager_script.wanna_destroy_enemy.Add(game_manager_script.EnemyFightName);
             Initialize(); //ここでGameManagerの配列を初期化
+            
             SceneManager.LoadScene(game_manager_script.SceneNameBefore);
+            
+        }
+        else
+        {
+            //プレイヤーが死んだとき
+            Initialize(); //ここでGameManagerの配列を初期化
+            SceneManager.LoadScene("GameOver");
         }
     }
 

@@ -11,7 +11,7 @@ public class ChaseToPlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Target = PlayerGetScript.player_get.gameObject;
+        Target = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame

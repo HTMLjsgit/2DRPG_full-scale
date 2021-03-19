@@ -23,7 +23,7 @@ public class kill_all_enemy_check_script : MonoBehaviour
 
     public void Check()
     {
-        if (FightEnemyCreate.fight_enemy_create.gameObject.transform.childCount - 1== 0)
+        if (FightEnemyCreate.fight_enemy_create.gameObject.transform.childCount - 1 == 0)
         {
             battleManagerScript.Finish(player_die: false);
         }

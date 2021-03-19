@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class EnemyFightSetScript : MonoBehaviour
 {
     public static EnemyFightSetScript enemy_script;
+    public string EnemyFightName;
     public string[] EnemyName;
     public float[] HP;
     public float[] Attack;

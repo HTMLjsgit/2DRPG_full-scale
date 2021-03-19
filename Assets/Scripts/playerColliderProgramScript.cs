@@ -12,7 +12,7 @@ public class playerColliderProgramScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = GameManagerScript.gameManager;
+        gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerScript>();
     }
 
     private void Awake()
@@ -31,6 +31,7 @@ public class playerColliderProgramScript : MonoBehaviour
         if (collision.gameObject.CompareTag("enemy"))
         {
             EnemyFightSetScript enemy_set_script = collision.gameObject.transform.GetChild(0).gameObject.GetComponent<EnemyFightSetScript>();
+            
             for (int i = 0; i < enemy_set_script.EnemyName.Length; i++)
             {
                 gameManager.Name.Add(enemy_set_script.EnemyName[i]);
@@ -39,8 +40,8 @@ public class playerColliderProgramScript : MonoBehaviour
                 gameManager.Image.Add(enemy_set_script.Image[i]);
                 gameManager.HP.Add(enemy_set_script.HP[i]);
             }
+            gameManager.EnemyFightName = collision.gameObject.name;
             MoveToPlaceName = collision.gameObject.tag;
-            gameManager.wanna_destroy_enemy.Add(collision.gameObject.GetComponent<EnemyNameSet>().Name);
             Destroy(collision.gameObject);
             SceneManager.LoadScene("FightScene");    
             col = true;
