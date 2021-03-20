@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class RestartScript : MonoBehaviour
 {
     GameObject GameManager;
@@ -9,6 +10,7 @@ public class RestartScript : MonoBehaviour
     GameObject Player;
     PlayerStatus PlayerStatus;
     public string[] do_not_wanna_move_scene_name;
+    Slider slider_hp;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +19,7 @@ public class RestartScript : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
         Player.SetActive(false);
         PlayerStatus = Player.GetComponent<PlayerStatus>();
+        slider_hp = game_manager_script.slider_hp;
     }
 
     // Update is called once per frame
@@ -29,7 +32,7 @@ public class RestartScript : MonoBehaviour
     {
         Player.SetActive(true);
         PlayerStatus.HP = PlayerStatus.BeforeHP;
-
+        slider_hp.value = PlayerStatus.HP / 100.0f;
         SceneManager.LoadScene(game_manager_script.SceneHistroy[game_manager_script.SceneHistroy.Count - 3]);
     }
 }

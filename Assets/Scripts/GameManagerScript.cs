@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
-
+using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -28,7 +28,9 @@ public class GameManagerScript : MonoBehaviour
     public GameObject saveObject;
     public GameObject Menu;
     public Vector2 PlayerPositionSave;
-    Dictionary<string, string> data = new Dictionary<string, string>();
+    GameObject Enemy;
+    public Slider slider_hp;
+    public GameObject Canvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -83,6 +85,5 @@ public class GameManagerScript : MonoBehaviour
                 }
             }
         }
-
     }
 }

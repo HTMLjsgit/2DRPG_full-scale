@@ -169,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemy_count: 0
   enemys: []
+  Canvas: {fileID: 1575027113}
 --- !u!1 &172698169
 GameObject:
   m_ObjectHideFlags: 0

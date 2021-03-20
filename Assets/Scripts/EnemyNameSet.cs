@@ -23,6 +23,5 @@ public class EnemyNameSet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 }

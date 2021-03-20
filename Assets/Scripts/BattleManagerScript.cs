@@ -9,17 +9,17 @@ public class BattleManagerScript : MonoBehaviour
     public GameObject[] enemys;
     public static BattleManagerScript battle_manager_script;
     GameManagerScript game_manager_script;
+    public GameObject Canvas;
     // Start is called before the first frame update
     void Start()
     {
         game_manager_script = GameObject.FindGameObjectWithTag("GameController").gameObject.GetComponent<GameManagerScript>();
-
         FightEnemyCreate.fight_enemy_create.Create(game_manager_script);
-
         foreach (Transform t in FightEnemyCreate.fight_enemy_create.GetComponentInChildren<Transform>())
         {
 
         }
+        game_manager_script.slider_hp.transform.SetParent(Canvas.transform);
     }
     private void Awake()
     {
@@ -30,9 +30,9 @@ public class BattleManagerScript : MonoBehaviour
     {
         
     }
-
     public void Finish(bool player_die)
     {
+        game_manager_script.slider_hp.transform.SetParent(game_manager_script.Canvas.transform);
         if (player_die == false)
         {
             //“G‚ª‘S–Å‚µ‚½‚Æ‚«B
@@ -48,6 +48,7 @@ public class BattleManagerScript : MonoBehaviour
             Initialize(); //‚±‚±‚ÅGameManager‚Ì”z—ñ‚ğ‰Šú‰»
             SceneManager.LoadScene("GameOver");
         }
+
     }
 
 
