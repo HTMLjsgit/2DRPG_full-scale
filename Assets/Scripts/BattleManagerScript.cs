@@ -10,6 +10,7 @@ public class BattleManagerScript : MonoBehaviour
     public static BattleManagerScript battle_manager_script;
     GameManagerScript game_manager_script;
     public GameObject Canvas;
+    public GameObject UserActionButtons;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +47,7 @@ public class BattleManagerScript : MonoBehaviour
         {
             //プレイヤーが死んだとき
             Initialize(); //ここでGameManagerの配列を初期化
-            SceneManager.LoadScene("GameOver");
+            SceneManager.LoadScene("GameOver"); //GameOverに飛ばす
         }
 
     }

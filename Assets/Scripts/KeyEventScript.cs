@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class KeyEventScript : MonoBehaviour
 {
     public KeyCode MenuDisplayKeyCode;
@@ -28,7 +28,6 @@ public class KeyEventScript : MonoBehaviour
     {
         foreach(string undisplaySceneName in UnDisplaySceneName)
         {
-
             if (SceneName != undisplaySceneName)
             {
                 if (Menu_Display)
@@ -41,6 +40,10 @@ public class KeyEventScript : MonoBehaviour
                 }
                 Menu = this.gameObject.GetComponent<GameManagerScript>().Menu.gameObject;
                 Menu.GetComponent<Animator>().SetBool("display", Menu_Display);
+                if (Menu_Display)
+                {
+                    this.gameObject.GetComponent<GameManagerScript>().Canvas.transform.GetChild(0).GetChild(0).GetComponent<Button>().Select();
+                }
             }
         }
 

@@ -32,7 +32,6 @@ public class StartButton : MonoBehaviour
 
     public void SceneMove(bool start)
     {
-        Debug.Log("testtttttttttttttttttttttstattttttttttttt");
 
         if (start == true)
         {
@@ -41,7 +40,6 @@ public class StartButton : MonoBehaviour
         }
         else
         {
-            Debug.Log("testtttttttttttttttttttttttt");
             var continue_load_status = PlayerPrefsObject.GetObject<Status>("Status");
             var continue_load_object_save = PlayerPrefsObject.GetObject<ObjectSave>("objectSave");
             if(continue_load_status != null && continue_load_object_save != null)
@@ -69,7 +67,6 @@ public class StartButton : MonoBehaviour
     {
         GameObject ObjectGames_prefab = Instantiate(ObjectGames);
         GameObject Player = GameObject.FindGameObjectWithTag("Player");
-        Debug.Log(Player);
         GameObject GameManager = GameObject.FindGameObjectWithTag("GameController");
         GameManagerScript GameManagerScript = GameManager.GetComponent<GameManagerScript>();
         PlayerStatus PlayerStatus = Player.GetComponent<PlayerStatus>();
@@ -90,12 +87,12 @@ public class StartButton : MonoBehaviour
         GameManagerScript.wanna_destroy_enemy = continue_load_object_save_json_taking_out.WannnaDestroyEnemy;
         GameManagerScript.SceneNameBefore = continue_load_object_save_json_taking_out.SceneNameBefore;
 
-
         //保存したデータをプレイヤーに代入
         PlayerStatus.HP = continue_load_status_json_taking_out.HP;
         PlayerStatus.Defense = continue_load_status_json_taking_out.Defense;
         PlayerStatus.Attack = continue_load_status_json_taking_out.Attack;
         PlayerStatus.position = continue_load_status_json_taking_out.position;
+        PlayerStatus.gameObject.transform.position = continue_load_status_json_taking_out.position;
         SceneManager.sceneLoaded -= SceneLoaded;
     }
 }

@@ -22,6 +22,7 @@ public class PlayerStatus : MonoBehaviour
         game_manager_script = GameManager.GetComponent<GameManagerScript>();
         SceneManager.sceneUnloaded += SceneUnLoaded;
         sliderHP = game_manager_script.slider_hp;
+        sliderHP.value = HP / 100.0f;
     }
     private void Awake()
     {

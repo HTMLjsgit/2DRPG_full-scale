@@ -13,9 +13,11 @@ public class EnemyStatus : MonoBehaviour
     public KeyCode get_key;
     GameObject Player;
     PlayerStatus player_status;
+    BattleManagerScript battle_manager_script;
     // Start is called before the first frame update
     void Start()
     {
+        battle_manager_script = GameObject.FindGameObjectWithTag("BattleManager").GetComponent<BattleManagerScript>();
         name = enemyName;
         Player = GameObject.FindGameObjectWithTag("Player");
         player_status = Player.GetComponent<PlayerStatus>();
@@ -65,5 +67,6 @@ public class EnemyStatus : MonoBehaviour
             Destroy(this.gameObject);
 
         }
+        battle_manager_script.UserActionButtons.transform.GetChild(0).GetComponent<Button>().Select();
     }
 }
