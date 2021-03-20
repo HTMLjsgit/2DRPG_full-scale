@@ -20,16 +20,12 @@ public class SaveClick : MonoBehaviour
 
     public void HomeMoveClick()
     {
-        SceneManager.sceneLoaded += SceneLoaded;
         SaveObject.GetComponent<SaveObjectScript>().Save();
+
         SceneManager.LoadScene("GameStart");
+        Destroy(GameObject.FindGameObjectWithTag("ObjectsGames"));
     }
 
-    void SceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        Destroy(GameObject.FindGameObjectWithTag("ObjectsGames"));
-        SceneManager.sceneLoaded -= SceneLoaded;
-    }
     // Update is called once per frame
     void Update()
     {
