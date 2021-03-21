@@ -40,19 +40,24 @@ public class BattleManagerScript : MonoBehaviour
             game_manager_script.wanna_destroy_enemy.Add(game_manager_script.EnemyFightName);
             Initialize(); //ここでGameManagerの配列を初期化
             
-            SceneManager.LoadScene(game_manager_script.SceneNameBefore);
+            StartCoroutine(GameSceneMove(game_manager_script.SceneNameBefore));
             
         }
         else
         {
             //プレイヤーが死んだとき
             Initialize(); //ここでGameManagerの配列を初期化
-            SceneManager.LoadScene("GameOver"); //GameOverに飛ばす
+            StartCoroutine(GameSceneMove("GameOver")); //GameOverに飛ばす
         }
 
     }
 
+    IEnumerator GameSceneMove(string SceneName)
+    {
+        yield return null;
+        SceneManager.LoadScene(SceneName);
 
+    }
     public void Initialize()
     {
         game_manager_script.Name.Clear();

@@ -14,6 +14,7 @@ public class EnemyStatus : MonoBehaviour
     GameObject Player;
     PlayerStatus player_status;
     BattleManagerScript battle_manager_script;
+    public Slider slider_hp;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,20 +54,37 @@ public class EnemyStatus : MonoBehaviour
         {
             HP -= Attack + defense;
             player_status.Attacked(Attack);
-            if(HP < 0)
+            AnimationAttackPlay();
+            if (HP < 0)
             {
                 kill_all_enemy_check_script.kill_all_enemy_script.Check();
-
-                Destroy(this.gameObject);
+                StartCoroutine(DestroyObject());
             }
         }
         else
         {
             kill_all_enemy_check_script.kill_all_enemy_script.Check();
-
-            Destroy(this.gameObject);
+            StartCoroutine(DestroyObject());
 
         }
         battle_manager_script.UserActionButtons.transform.GetChild(0).GetComponent<Button>().Select();
+        slider_hp.value = HP / 100.0f;
     }
+
+    void AnimationAttackPlay()
+    {
+        GameObject AttackedAnimation = this.gameObject.GetComponent<AttackedAnimationObjectSetScript>().AttackedAnimation.gameObject;
+        float r = AttackedAnimation.GetComponent<Image>().color.r;
+        float b = AttackedAnimation.GetComponent<Image>().color.b;
+        float g = AttackedAnimation.GetComponent<Image>().color.g;
+        AttackedAnimation.GetComponent<Image>().color = new Color(r, b,g, 1);
+        AttackedAnimation.GetComponent<Animator>().SetBool("play", true);
+
+    }
+    IEnumerator DestroyObject()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Destroy(this.gameObject);
+    }
+    
 }
