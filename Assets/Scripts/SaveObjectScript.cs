@@ -16,6 +16,7 @@ class ObjectSave
     public string SceneNameBefore;
     public List<string> SceneHistroy;
     public List<string> WannnaDestroyEnemy;
+    public List<string> WannaDestroyItem;
 }
 class ItemSave
 {
@@ -91,7 +92,8 @@ public class SaveObjectScript : MonoBehaviour
                     SceneName = game_manager_script.SceneName,
                     SceneNameBefore = game_manager_script.SceneNameBefore,
                     SceneHistroy = game_manager_script.SceneHistroy,
-                    WannnaDestroyEnemy = game_manager_script.wanna_destroy_enemy
+                    WannnaDestroyEnemy = game_manager_script.wanna_destroy_enemy,
+                    WannaDestroyItem = itemDatabase.wanna_destroy_item_id
                 };
                 foreach (ItemList item in itemDatabase.items)
                 {

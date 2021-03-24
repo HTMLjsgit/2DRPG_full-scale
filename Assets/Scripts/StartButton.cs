@@ -96,8 +96,10 @@ public class StartButton : MonoBehaviour
         GameManagerScript.wanna_destroy_enemy = continue_load_object_save_json_taking_out.WannnaDestroyEnemy;
         GameManagerScript.SceneNameBefore = continue_load_object_save_json_taking_out.SceneNameBefore;
 
+        //保存したデータをItemDatabase(ItemController)に代入(削除したいアイテムのID名などの保管庫)
+        item_database.wanna_destroy_item_id = continue_load_object_save_json_taking_out.WannaDestroyItem;
         //保存したデータをItemControllerに代入
-        for(int i = 0; i <  continue_load_item_save_json_taking_out.ItemCount; i++)
+        for (int i = 0; i <  continue_load_item_save_json_taking_out.ItemCount; i++)
         {
             string Name = continue_load_item_save_json_taking_out.Name[i];
             float speed = continue_load_item_save_json_taking_out.speed[i];
@@ -114,8 +116,9 @@ public class StartButton : MonoBehaviour
             //ここでまずはアイテムステータスを作っていくよ。
             itemsLoad.Add(new ItemList(name: Name, id: ID, power: Attack, desc: Description, def: Defense, speed: speed, ls: LifeSteal, etype: elemenType, type: itemType, sprite: sprite, itemHPIncre: HPIncrease));
         }
+        //上で作成したListを入れていく―
         item_database.items = itemsLoad;
-        //保存したデータをプレイヤーに代入
+        //保存したデータをPlayerStautsに代入
         PlayerStatus.HP = continue_load_status_json_taking_out.HP;
         PlayerStatus.Defense = continue_load_status_json_taking_out.Defense;
         PlayerStatus.Attack = continue_load_status_json_taking_out.Attack;

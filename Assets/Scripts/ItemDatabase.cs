@@ -32,7 +32,6 @@ public class ItemDatabase : MonoBehaviour
             {
                 foreach (GameObject item in GameObject.FindGameObjectsWithTag("item"))
                 {
-                    Debug.Log(item.GetComponent<ItemAddScript>().itemID);
                     if (wannna_destroy_id == item.GetComponent<ItemAddScript>().itemID + "_" + SceneName)
                     {
                         Destroy(item);
@@ -72,7 +71,6 @@ public class ItemDatabase : MonoBehaviour
             {
                 foreach (GameObject item in GameObject.FindGameObjectsWithTag("item"))
                 {
-                    Debug.Log(item.GetComponent<ItemAddScript>().itemID + "_" + nextScene.name);
                     if (wannna_destroy_id == item.GetComponent<ItemAddScript>().itemID + "_" + nextScene.name)
                     {
                         Destroy(item);

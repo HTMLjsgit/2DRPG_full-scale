@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class ItemAddScript : MonoBehaviour
 {
     [SerializeField]
@@ -33,7 +33,7 @@ public class ItemAddScript : MonoBehaviour
         GameManager = GameObject.FindGameObjectWithTag("GameController");
         Item_database = GameObject.FindWithTag("ItemController").GetComponent<ItemDatabase>();
         ItemImageController = GameManager.GetComponent<GameManagerScript>().ItemImage;
-        itemID += "_" + GameManager.GetComponent<GameManagerScript>().SceneName; //マップごとにIDを設定できるようにするため
+        itemID += "_" + SceneManager.GetActiveScene().name; //マップごとにIDを設定できるようにするため
         if (basic_mode)
         {
             ItemAdd_to_ItemDatabase();
