@@ -9,6 +9,8 @@ TagManager:
   - BattleManager
   - Menu
   - SaveObject
+  - ItemController
+  - item
   layers:
   - Default
   - TransparentFX
@@ -48,4 +50,7 @@ TagManager:
     locked: 0
   - name: char
     uniqueID: 3824917623
+    locked: 0
+  - name: object
+    uniqueID: 536386019
     locked: 0

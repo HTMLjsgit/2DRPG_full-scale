@@ -31,6 +31,7 @@ public class GameManagerScript : MonoBehaviour
     GameObject Enemy;
     public Slider slider_hp;
     public GameObject Canvas;
+    public GameObject ItemImage;
     // Start is called before the first frame update
     void Start()
     {

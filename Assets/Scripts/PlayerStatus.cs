@@ -9,6 +9,7 @@ public class PlayerStatus : MonoBehaviour
     public static PlayerStatus player_status;
     public float BeforeHP;
     public float HP;
+    private float MaxHP;
     public float Defense;
     public float Attack;
     public Vector2 position;
@@ -23,6 +24,7 @@ public class PlayerStatus : MonoBehaviour
         SceneManager.sceneUnloaded += SceneUnLoaded;
         sliderHP = game_manager_script.slider_hp;
         sliderHP.value = HP / 100.0f;
+        MaxHP = HP;
     }
     private void Awake()
     {
@@ -40,6 +42,21 @@ public class PlayerStatus : MonoBehaviour
     void Update()
     {
         position = this.transform.position;
+    }
+    public void DefenseSet(float set)
+    {
+        Defense = set;
+    }
+    public void AttackSet(float set)
+    {
+        Attack = set;
+    }
+    public void HPset(float set)
+    {
+        if(HP > 0 && MaxHP <= HP)
+        {
+            HP = set;
+        }
     }
     public void Attacked(float Attacked)
     {

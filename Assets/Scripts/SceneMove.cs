@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 public class SceneMove : MonoBehaviour
 {
     public static SceneMove sceneMove;
-    GameManagerScript gameManager;
+    GameManagerScript game_managerScript;
     GameObject Target;
     // Start is called before the first frame update
     void Start()
     {
         Target = GameObject.FindGameObjectWithTag("Player");
+        game_managerScript = GameObject.FindWithTag("GameController").GetComponent<GameManagerScript>();
         Target.SetActive(false);
     }
     private void Awake()
@@ -27,11 +28,11 @@ public class SceneMove : MonoBehaviour
 
     public void MoveToBackScene(string SceneName)
     {
-        gameManager.Name.Clear();
-        gameManager.HP.Clear();
-        gameManager.Attack.Clear();
-        gameManager.Defense.Clear();
-        gameManager.Image.Clear();
+        game_managerScript.Name.Clear();
+        game_managerScript.HP.Clear();
+        game_managerScript.Attack.Clear();
+        game_managerScript.Defense.Clear();
+        game_managerScript.Image.Clear();
         Target.SetActive(true);
         SceneManager.LoadScene(SceneName);
     }

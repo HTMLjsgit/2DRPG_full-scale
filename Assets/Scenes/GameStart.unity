@@ -273,7 +273,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartSceneName: Map1
-  ObjectGames: {fileID: 0}
+  ObjectGames: {fileID: 6435416675099289665, guid: 22e5d234dc1952443b1933e61636aba1,
+    type: 3}
 --- !u!114 &179429354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -795,7 +796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartSceneName: Map1
-  ObjectGames: {fileID: 8392880591225615901, guid: 4535b99875223f34085525b90662de2e,
+  ObjectGames: {fileID: 6435416675099289665, guid: 22e5d234dc1952443b1933e61636aba1,
     type: 3}
 --- !u!114 &1991237298
 MonoBehaviour:

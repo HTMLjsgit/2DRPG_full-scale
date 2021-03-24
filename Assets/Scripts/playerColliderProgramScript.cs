@@ -9,6 +9,8 @@ public class playerColliderProgramScript : MonoBehaviour
     public GameObject before_destroy_object;
     GameManagerScript gameManager;
     public string MoveToPlaceName;
+    GameObject target;
+    public KeyCode keycode;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +24,15 @@ public class playerColliderProgramScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
+        if(target != null && col)
+        {
+            if (Input.GetKeyDown(keycode))
+            {
+                target.gameObject.GetComponent<ItemAddScript>().ItemAdd_to_ItemDatabase();
+                target.gameObject.GetComponent<ItemAddScript>().ObjectDelete();
+                target = null;
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -44,15 +53,19 @@ public class playerColliderProgramScript : MonoBehaviour
             MoveToPlaceName = collision.gameObject.tag;
             Destroy(collision.gameObject);
             SceneManager.LoadScene("FightScene");    
-            col = true;
         }
+        if (collision.gameObject.CompareTag("item"))
+        {
+            target = collision.gameObject;
+        }
+        col = true;
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("enemy"))
         {
-            col = false;
         }
+        col = false;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,11 @@ using UnityEngine.UI;
 public class KeyEventScript : MonoBehaviour
 {
     public KeyCode MenuDisplayKeyCode;
-     GameObject Menu;
+    public KeyCode ItemMenuDisplayKeyCode;
+    GameObject Menu;
+    GameObject ItemMenu;
     bool Menu_Display = false;
+    bool ItemMenuDisplay = false;
     public string[] UnDisplaySceneName;
     string SceneName;
     PlayerMoveController player_move_controller;
@@ -16,6 +20,8 @@ public class KeyEventScript : MonoBehaviour
     {
         SceneName = this.gameObject.GetComponent<GameManagerScript>().SceneName;
         player_move_controller = GameObject.FindWithTag("Player").GetComponent<PlayerMoveController>();
+        ItemMenu = this.gameObject.GetComponent<GameManagerScript>().ItemImage;
+        Menu = this.gameObject.GetComponent<GameManagerScript>().Menu.gameObject;
     }
 
     // Update is called once per frame
@@ -24,51 +30,89 @@ public class KeyEventScript : MonoBehaviour
         if (Input.GetKeyDown(MenuDisplayKeyCode))
         {
             MenuDisplay();
+        }else if (Input.GetKeyDown(ItemMenuDisplayKeyCode))
+        {
+            ItemMenuShow();
         }
     }
 
     public void MenuDisplay()
     {
-        foreach(string undisplaySceneName in UnDisplaySceneName)
-        {
-            if (SceneName != undisplaySceneName)
+        int ret = Array.IndexOf(UnDisplaySceneName, SceneName); //現在のシーンと表示したくないシーンがあったら
+            if (ret < 0)
             {
                 if (Menu_Display)
                 {
                     //player_move_controller.enabled = true;
 
-                    player_move_controller.speed = speedSave;
                     player_move_controller.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                     Menu_Display = false;
 
                 }
                 else
                 {
-                    speedSave = player_move_controller.speed;
                     player_move_controller.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                     Menu_Display = true;
                 }
-                Menu = this.gameObject.GetComponent<GameManagerScript>().Menu.gameObject;
+                if (!ItemMenuDisplay)
+                {
+                    Menu.GetComponent<Toggle>().isOn = Menu_Display;
+                }
                 Menu.GetComponent<Animator>().SetBool("display", Menu_Display);
                 player_move_controller.GetComponent<Animator>().enabled = !Menu_Display;
                 player_move_controller.moveMode = !Menu_Display;
                 if (Menu_Display)
                 {
-                    this.gameObject.GetComponent<GameManagerScript>().Canvas.transform.GetChild(0).GetChild(0).GetComponent<Button>().Select();
-
+                    GameObject g = Menu.transform.GetChild(0).gameObject;
+                    BasicSelectObject(g);
                 }
             }
+    }
+
+    public void ItemMenuShow() {
+        int ret = Array.IndexOf(UnDisplaySceneName, SceneName);  //現在のシーンと表示したくないシーンがあったら
+        if (ret < 0)
+            {
+                if (ItemMenuDisplay)
+                {
+                    player_move_controller.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                    ItemMenuDisplay = false;
+                }
+                else
+                {
+                    player_move_controller.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                    ItemMenuDisplay = true;
+                }
+                if (!Menu_Display)
+                {
+                    ItemMenu.GetComponent<Toggle>().isOn = ItemMenuDisplay;
+
+                }
+
+                ItemMenu.GetComponent<Animator>().SetBool("show", ItemMenuDisplay);
+                player_move_controller.GetComponent<Animator>().enabled = !ItemMenuDisplay;
+                player_move_controller.moveMode = !ItemMenuDisplay;
+                if (ItemMenu.transform.childCount != 0 && ItemMenuDisplay)
+                {
+                   BasicSelectObject(ItemMenu.transform.GetChild(0).gameObject);
+                }
         }
-
     }
-    void Stop()
+
+    void BasicSelectObject(GameObject select_object)
     {
-        Time.timeScale = 0;
-
+        Button button = select_object.GetComponent<Button>();
+        Selectable selectable = select_object.GetComponent<Selectable>();
+        if(select_object != null)
+        {
+            if (button != null)
+            {
+                button.Select();
+            }
+            else if (selectable != null)
+            {
+                selectable.Select();
+            }
+        }
     }
-    void Play()
-    {
-        Time.timeScale = 1;
-    }
-
 }

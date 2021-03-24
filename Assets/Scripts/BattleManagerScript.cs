@@ -54,7 +54,7 @@ public class BattleManagerScript : MonoBehaviour
 
     IEnumerator GameSceneMove(string SceneName)
     {
-        yield return null;
+        yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(SceneName);
 
     }
