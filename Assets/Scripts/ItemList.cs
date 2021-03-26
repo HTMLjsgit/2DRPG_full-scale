@@ -26,6 +26,7 @@ public class ItemList
     public enum ItemType
     {
         Weapon,
+        Gear,
         Consumable,
         Quest
     }

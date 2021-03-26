@@ -18,8 +18,8 @@ public class ItemDatabase : MonoBehaviour
     {
         GameManager = GameObject.FindWithTag("GameController");
         game_manager_script = GameManager.GetComponent<GameManagerScript>();
-        ItemImageController = game_manager_script.ItemImage;
-        GameObject itemprefab = Instantiate(ItemImageController, ItemImageController.transform);
+        ItemImageController = game_manager_script.ItemShowImage;
+        //GameObject itemprefab = Instantiate(ItemImageController, ItemImageController.transform);
         SceneName = game_manager_script.SceneName;
         foreach (ItemList item in items)
         {

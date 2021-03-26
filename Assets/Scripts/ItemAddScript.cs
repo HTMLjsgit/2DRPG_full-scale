@@ -22,7 +22,6 @@ public class ItemAddScript : MonoBehaviour
     GameObject GameManager;
     public bool once = false;
     private bool once_mode = false;
-    GameObject ItemImageController;
     public GameObject ItemImage;
     List<ItemList> itemList = new List<ItemList>();
     ItemDatabase Item_database;
@@ -32,7 +31,6 @@ public class ItemAddScript : MonoBehaviour
         ItemController = GameObject.FindGameObjectWithTag("ItemController");
         GameManager = GameObject.FindGameObjectWithTag("GameController");
         Item_database = GameObject.FindWithTag("ItemController").GetComponent<ItemDatabase>();
-        ItemImageController = GameManager.GetComponent<GameManagerScript>().ItemImage;
         itemID += "_" + SceneManager.GetActiveScene().name; //É}ÉbÉvÇ≤Ç∆Ç…IDÇê›íËÇ≈Ç´ÇÈÇÊÇ§Ç…Ç∑ÇÈÇΩÇﬂ
         if (basic_mode)
         {

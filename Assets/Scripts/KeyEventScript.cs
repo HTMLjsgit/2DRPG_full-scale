@@ -8,7 +8,7 @@ public class KeyEventScript : MonoBehaviour
     public KeyCode MenuDisplayKeyCode;
     public KeyCode ItemMenuDisplayKeyCode;
     GameObject Menu;
-    GameObject ItemMenu;
+    GameObject ItemAll;
     bool Menu_Display = false;
     bool ItemMenuDisplay = false;
     public string[] UnDisplaySceneName;
@@ -20,7 +20,7 @@ public class KeyEventScript : MonoBehaviour
     {
         SceneName = this.gameObject.GetComponent<GameManagerScript>().SceneName;
         player_move_controller = GameObject.FindWithTag("Player").GetComponent<PlayerMoveController>();
-        ItemMenu = this.gameObject.GetComponent<GameManagerScript>().ItemImage;
+        ItemAll = this.gameObject.GetComponent<GameManagerScript>().ItemAll;
         Menu = this.gameObject.GetComponent<GameManagerScript>().Menu.gameObject;
     }
 
@@ -85,16 +85,16 @@ public class KeyEventScript : MonoBehaviour
                 }
                 if (!Menu_Display)
                 {
-                    ItemMenu.GetComponent<Toggle>().isOn = ItemMenuDisplay;
+                    ItemAll.GetComponent<Toggle>().isOn = ItemMenuDisplay;
 
                 }
 
-                ItemMenu.GetComponent<Animator>().SetBool("show", ItemMenuDisplay);
+                ItemAll.GetComponent<Animator>().SetBool("show", ItemMenuDisplay);
                 player_move_controller.GetComponent<Animator>().enabled = !ItemMenuDisplay;
                 player_move_controller.moveMode = !ItemMenuDisplay;
-                if (ItemMenu.transform.childCount != 0 && ItemMenuDisplay)
+                if (ItemAll.transform.childCount != 0 && ItemMenuDisplay)
                 {
-                   BasicSelectObject(ItemMenu.transform.GetChild(0).gameObject);
+                   BasicSelectObject(ItemAll.transform.GetChild(0).gameObject);
                 }
         }
     }
