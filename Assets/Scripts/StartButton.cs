@@ -36,6 +36,8 @@ public class StartButton : MonoBehaviour
         if (start == true)
         {
             PlayerPrefs.DeleteAll();
+            Debug.Log("Starttttttttttttttttttttttttttttttttttttttt");
+
             SceneManager.LoadScene(StartSceneName);
         }
         else
@@ -69,6 +71,7 @@ public class StartButton : MonoBehaviour
 
     public void SceneLoaded(Scene scene, LoadSceneMode sceneMode)
     {
+        Debug.Log("I am here ScneLoaded---------------------------------");
         GameObject ObjectGames_prefab = Instantiate(ObjectGames);
         GameObject Player = GameObject.FindGameObjectWithTag("Player");
         GameObject GameManager = GameObject.FindGameObjectWithTag("GameController");

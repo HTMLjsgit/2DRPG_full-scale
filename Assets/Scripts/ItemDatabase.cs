@@ -33,22 +33,18 @@ public class ItemDatabase : MonoBehaviour
             itemName.Add(item.ItemName);
             ItemStatus item_status = itemPrefab.GetComponent<ItemStatus>();
             ItemGearImageStatus item_gear_status = itemPrefab.GetComponent<ItemGearImageStatus>();
+
+            if (item_status.ItemType == ItemList.ItemType.Weapon && !string.IsNullOrEmpty(gearManager.weaponID))
             {
                 gearManager.ItemWeaponDescSet(gearManager.WeaponDesc, itemPrefab);
             }
-
-                gearManager.ItemGearDescSet(gearManager.GearDesc, itemPrefab, true);
-                Debug.Log(gearManager.GearHead);
-        }
-        gearManager.GearEquipment(gearManager.GearHead, gearManager.GearLeg, gearManager.GearBody, gearManager.GearArmLeft, gearManager.GearArmRight);
-        foreach (GameObject gearItem in GameObject.FindGameObjectsWithTag("item"))
-        {
-            if(gearItem.GetComponent<ItemGearImageStatus>() != null)
+            else if(item_status.ItemType == ItemList.ItemType.Gear && !string.IsNullOrEmpty(gearManager.GearID))
             {
-                //ItemGearImageStatus item_gear_image_status = gearItem.GetComponent<ItemGearImageStatus>();
-                //item_gear_image_status;
+                gearManager.ItemGearDescSet(gearManager.GearDesc, itemPrefab, true);
+                //ª‚±‚±‚ğ’Ê‚é‚ÆGearID•¶š‚ª‚ÉƒZƒbƒg‚³‚ê‚é
             }
         }
+        gearManager.GearEquipment(gearManager.GearHead, gearManager.GearLeg, gearManager.GearBody, gearManager.GearArmLeft, gearManager.GearArmRight);
         if (SceneName != "FightScene")
         {
             foreach (string wannna_destroy_id in wanna_destroy_item_id)

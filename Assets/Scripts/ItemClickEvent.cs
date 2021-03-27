@@ -40,9 +40,7 @@ public class ItemClickEvent : MonoBehaviour
         //アイテムがクリックされたときのイベントをかく。
         float PlayerHP = player_status.HP;
         //ここはアイテムのステータスをプレイヤーに反映させる。
-        player_status.DefenseSet(itemStatus.itemDefense);
-        player_status.HPset(PlayerHP + itemStatus.itemLifeInCrease);
-        player_status.AttackSet(itemStatus.itemPower);
+
 
         if (itemStatus.item_weapon_mode)
         {
@@ -73,6 +71,11 @@ public class ItemClickEvent : MonoBehaviour
                     gear_manager_script.GearEquipment(gears_set_script.Head[i], gears_set_script.Leg[i], gears_set_script.Body[i], gears_set_script.ArmsLeft[i], gears_set_script.ArmsRight[i]);
                 }
             }
+        }else if(itemStatus.ItemType == ItemList.ItemType.Consumable)
+        {
+            //消費アイテムだったら
+            player_status.HPset(PlayerHP + itemStatus.itemLifeInCrease);
+            Destroy(this.gameObject);
         }
 
     }

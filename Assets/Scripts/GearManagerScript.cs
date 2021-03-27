@@ -51,12 +51,16 @@ public class GearManagerScript : MonoBehaviour
 
     Toggle gears_toggle;
     GearsSetScript gear_set_script;
+
+    PlayerStatus player_status;
     // Start is called before the first frame update
     void Start()
     {
+
         GameManager = GameObject.FindWithTag("GameController");
         gears_toggle = Gears.GetComponent<Toggle>();
         gear_set_script = GetComponent<GearsSetScript>();
+        player_status = GameObject.FindWithTag("Player").GetComponent<PlayerStatus>();
     }
 
     // Update is called once per frame
@@ -69,6 +73,7 @@ public class GearManagerScript : MonoBehaviour
         //ƒMƒA‚Ì‘•”õ‚ÌDesc‚É“–‚Ä‚Í‚ß‚é
 
         ItemStatus item_status = ItemObject.GetComponent<ItemStatus>();
+        player_status.DefenseSet(item_status.itemDefense);
         ItemGearImageStatus item_gear_image_status = ItemObject.GetComponent<ItemGearImageStatus>();
         if (desc.transform.childCount == 0)
         {
@@ -102,8 +107,8 @@ public class GearManagerScript : MonoBehaviour
 
     public void ItemGearDescRemove(GameObject ItemObject)
     {
-        Debug.Log("I am in ItemGearDescRemove");
         ItemStatus item_status = ItemObject.GetComponent<ItemStatus>();
+        player_status.DefenseSet(player_status.InitDefense);
         ItemObject.transform.SetParent(null);
         ItemObject.transform.SetParent(GameManager.GetComponent<GameManagerScript>().ItemShowImage.transform);
         GearName = null;
@@ -122,6 +127,8 @@ public class GearManagerScript : MonoBehaviour
     {
 
         ItemStatus item_status = ItemObject.GetComponent<ItemStatus>();
+        player_status.AttackSet(item_status.itemPower);
+
         if (desc.transform.childCount == 0)
         {
             //‚à‚µDesc‚É‰½‚àƒZƒbƒg‚³‚ê‚Ä‚È‚©‚Á‚½‚çH(’Êí‰^“])
@@ -150,6 +157,8 @@ public class GearManagerScript : MonoBehaviour
     {
 
         ItemStatus item_status = ItemObject.GetComponent<ItemStatus>();
+        player_status.AttackSet(player_status.InitAttack);
+
         ItemObject.transform.SetParent(null);
         ItemObject.transform.SetParent(GameManager.GetComponent<GameManagerScript>().ItemShowImage.transform);
         item_status.item_weapon_mode = false;

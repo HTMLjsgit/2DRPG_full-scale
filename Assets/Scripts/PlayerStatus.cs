@@ -7,6 +7,10 @@ using UnityEngine.UI;
 public class PlayerStatus : MonoBehaviour
 {
     public static PlayerStatus player_status;
+    public float InitHP;
+    public float InitDefense;
+    public float InitAttack;
+
     public float BeforeHP;
     public float HP;
     private float MaxHP;
@@ -25,6 +29,9 @@ public class PlayerStatus : MonoBehaviour
         sliderHP = game_manager_script.slider_hp;
         sliderHP.value = HP / 100.0f;
         MaxHP = HP;
+        InitHP = HP;
+        InitDefense = Defense;
+        InitAttack = Attack;
     }
     private void Awake()
     {

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class KeyEventScript : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class KeyEventScript : MonoBehaviour
 
     public void MenuDisplay()
     {
-        SceneName = this.gameObject.GetComponent<GameManagerScript>().SceneName;
+        SceneName = SceneManager.GetActiveScene().name;
         int ret = Array.IndexOf(UnDisplaySceneName, SceneName); //現在のシーンと表示したくないシーンがあったら
             if (ret < 0)
             {
