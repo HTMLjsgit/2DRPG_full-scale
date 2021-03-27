@@ -16,6 +16,8 @@ public class ItemList
     public elementType elementtype;
     public ItemType itemType;
 
+    //GearÇÃê›íË
+
     public enum elementType
     {
         Non,
@@ -43,5 +45,9 @@ public class ItemList
         elementtype = etype;
         itemType = type;
         itemHPInCrease = itemHPIncre;
+        if (itemType == ItemType.Gear)
+        {
+
+        }
     }
 }

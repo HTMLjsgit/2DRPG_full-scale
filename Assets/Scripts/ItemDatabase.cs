@@ -13,18 +13,41 @@ public class ItemDatabase : MonoBehaviour
     public GameObject ItemImageAndBackground; //Please put a Prefab in here.
     public List<string> wanna_destroy_item_id;
     string SceneName;
+    GameObject itemPrefab;
+    GearManagerScript gearManager;
+    GearsSetScript gear_set_script;
     // Start is called before the first frame update
     void Start()
     {
         GameManager = GameObject.FindWithTag("GameController");
         game_manager_script = GameManager.GetComponent<GameManagerScript>();
         ItemImageController = game_manager_script.ItemShowImage;
+        gearManager = GameObject.FindWithTag("ItemController").GetComponent<GearManagerScript>();
+        gear_set_script = GameObject.FindWithTag("ItemController").GetComponent<GearsSetScript>();
         //GameObject itemprefab = Instantiate(ItemImageController, ItemImageController.transform);
         SceneName = game_manager_script.SceneName;
         foreach (ItemList item in items)
         {
+            //ÉçÅ[ÉhÇµÇΩÇ∆Ç´Ç…çÏÇÈ
             ItemImagePrefabCreate(item);
             itemName.Add(item.ItemName);
+            ItemStatus item_status = itemPrefab.GetComponent<ItemStatus>();
+            ItemGearImageStatus item_gear_status = itemPrefab.GetComponent<ItemGearImageStatus>();
+            {
+                gearManager.ItemWeaponDescSet(gearManager.WeaponDesc, itemPrefab);
+            }
+
+                gearManager.ItemGearDescSet(gearManager.GearDesc, itemPrefab, true);
+                Debug.Log(gearManager.GearHead);
+        }
+        gearManager.GearEquipment(gearManager.GearHead, gearManager.GearLeg, gearManager.GearBody, gearManager.GearArmLeft, gearManager.GearArmRight);
+        foreach (GameObject gearItem in GameObject.FindGameObjectsWithTag("item"))
+        {
+            if(gearItem.GetComponent<ItemGearImageStatus>() != null)
+            {
+                //ItemGearImageStatus item_gear_image_status = gearItem.GetComponent<ItemGearImageStatus>();
+                //item_gear_image_status;
+            }
         }
         if (SceneName != "FightScene")
         {
@@ -54,10 +77,24 @@ public class ItemDatabase : MonoBehaviour
     
     public void ItemImagePrefabCreate(ItemList item)
     {
-        GameObject itemprefab = Instantiate(ItemImageAndBackground, ItemImageController.transform);
-        itemprefab.GetComponent<ItemStatus>().Create(item);
+        itemPrefab = Instantiate(ItemImageAndBackground, ItemImageController.transform);
+        itemPrefab.GetComponent<ItemStatus>().Create(item);
+        
     }
-
+    public void GearImageSetInPrefab_item(GameObject ItemGearImageSet)
+    {
+        ItemGearImageStatus item_gear_status = itemPrefab.GetComponent<ItemGearImageStatus>();
+        ItemGearImageSetScript item_gear_image_set = ItemGearImageSet.GetComponent<ItemGearImageSetScript>();
+        ItemStatus item_status = itemPrefab.GetComponent<ItemStatus>();
+        gear_set_script.ArmsLeft.Add(item_gear_image_set.ArmsSkinLeft);
+        gear_set_script.ArmsRight.Add(item_gear_image_set.ArmsSkinRight);
+        gear_set_script.Leg.Add(item_gear_image_set.LegSkin);
+        gear_set_script.Body.Add(item_gear_image_set.BodySkin);
+        gear_set_script.Head.Add(item_gear_image_set.HeadSkin);
+        gear_set_script.GearID.Add(item_status.itemID);
+        gear_set_script.GearName.Add(item_status.ItemName);
+        gear_set_script.GearDefense.Add(item_status.itemDefense);
+    }
     // Update is called once per frame
     void Update()
     {

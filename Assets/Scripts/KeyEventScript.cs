@@ -14,11 +14,9 @@ public class KeyEventScript : MonoBehaviour
     public string[] UnDisplaySceneName;
     string SceneName;
     PlayerMoveController player_move_controller;
-    float speedSave;
     // Start is called before the first frame update
     void Start()
     {
-        SceneName = this.gameObject.GetComponent<GameManagerScript>().SceneName;
         player_move_controller = GameObject.FindWithTag("Player").GetComponent<PlayerMoveController>();
         ItemAll = this.gameObject.GetComponent<GameManagerScript>().ItemAll;
         Menu = this.gameObject.GetComponent<GameManagerScript>().Menu.gameObject;
@@ -38,6 +36,7 @@ public class KeyEventScript : MonoBehaviour
 
     public void MenuDisplay()
     {
+        SceneName = this.gameObject.GetComponent<GameManagerScript>().SceneName;
         int ret = Array.IndexOf(UnDisplaySceneName, SceneName); //現在のシーンと表示したくないシーンがあったら
             if (ret < 0)
             {
@@ -70,6 +69,8 @@ public class KeyEventScript : MonoBehaviour
     }
 
     public void ItemMenuShow() {
+        SceneName = this.gameObject.GetComponent<GameManagerScript>().SceneName;
+
         int ret = Array.IndexOf(UnDisplaySceneName, SceneName);  //現在のシーンと表示したくないシーンがあったら
         if (ret < 0)
             {

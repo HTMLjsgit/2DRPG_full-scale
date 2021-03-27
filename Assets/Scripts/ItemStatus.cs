@@ -17,8 +17,13 @@ public class ItemStatus : MonoBehaviour
     public ItemList.ItemType ItemType;
     public Text itemNameText;
 
-    [Header("アイテムをギアに装備してるか")]
+    [Header("アイテム(武器)をギアに装備してるか")]
+    public bool item_weapon_mode;
+
+    [Header("アイテム(防具を)ギアに装備しているか")]
     public bool item_gear_mode;
+
+
     // Start is called before the first frame update
     void Start()
     {

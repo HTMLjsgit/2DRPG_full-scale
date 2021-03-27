@@ -55,6 +55,10 @@ public class ItemAddScript : MonoBehaviour
     public void ItemAdd_to_ItemDatabase()
     {
         ItemController.GetComponent<ItemDatabase>().ItemImagePrefabCreate(itemList[0]);
+        if(this.gameObject.GetComponent<ItemGearImageSetScript>() != null)
+        {
+            ItemController.GetComponent<ItemDatabase>().GearImageSetInPrefab_item(this.gameObject);
+        }
         if (once)
         {
             if(once_mode == false)

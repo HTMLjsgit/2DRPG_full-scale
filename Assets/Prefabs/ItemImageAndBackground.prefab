@@ -172,9 +172,10 @@ GameObject:
   - component: {fileID: 3716740576641744388}
   - component: {fileID: 4271697315993671015}
   - component: {fileID: 3843558924783161366}
+  - component: {fileID: 4211394771607215877}
   m_Layer: 5
   m_Name: ItemImageAndBackground
-  m_TagString: Untagged
+  m_TagString: ItemImageAndBackground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -254,7 +255,6 @@ MonoBehaviour:
   itemID: 0
   itemDesc: 
   itemIcon: {fileID: 0}
-  speed: 0
   itemPower: 0
   itemDefense: 0
   itemAttackSpeed: 0
@@ -263,6 +263,8 @@ MonoBehaviour:
   etype: 0
   ItemType: 0
   itemNameText: {fileID: 5019737360992061170}
+  item_weapon_mode: 0
+  item_gear_mode: 0
 --- !u!114 &7303588098414704456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,6 +290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 122
+  before_move_item_position: {x: 0, y: 0}
 --- !u!114 &5653823943026002911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,7 +345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 1
+    m_Mode: 3
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 4271697315993671015}
     m_SelectOnDown: {fileID: 4271697315993671015}
@@ -389,3 +392,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4211394771607215877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7793700532892281120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a8fbf4e774018540919f534aca30a7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Arms: []
+  Head: {fileID: 0}
+  Leg: {fileID: 0}
+  Body: {fileID: 0}

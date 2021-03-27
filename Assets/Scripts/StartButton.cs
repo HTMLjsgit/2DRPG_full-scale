@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
-using MiniJSON;
 public class StartButton : MonoBehaviour
 {
     public string StartSceneName;
@@ -77,19 +76,28 @@ public class StartButton : MonoBehaviour
         GameObject ItemController = GameObject.FindWithTag("ItemController");
         ItemDatabase item_database = ItemController.GetComponent<ItemDatabase>();
         PlayerStatus PlayerStatus = Player.GetComponent<PlayerStatus>();
-
+        GearManagerScript gear_manager_script = ItemController.GetComponent<GearManagerScript>();
+        GearsSetScript gears_set_script = ItemController.GetComponent<GearsSetScript>();
 
         var continue_load_status = PlayerPrefsObject.GetObject<Status>("Status");
         var continue_load_object_save = PlayerPrefsObject.GetObject<ObjectSave>("objectSave");
+        var continue_load_item_save = PlayerPrefsObject.GetObject<ItemSave>("ItemSave");
+        var continue_load_gear_save = PlayerPrefsObject.GetObject<GearSave>("GearSave");
+        var continue_load_gear_status_save = PlayerPrefsObject.GetObject<GearStatusSave>("GearStatusSave");
+
         var continue_load_status_json = JsonUtility.ToJson(continue_load_status).ToString();
         var continue_load_object_save_json = JsonUtility.ToJson(continue_load_object_save).ToString();
-        var continue_load_item_save = PlayerPrefsObject.GetObject<ItemSave>("ItemSave");
         var continue_load_item_save_json = JsonUtility.ToJson(continue_load_item_save).ToString();
+        var continue_load_gear_save_json = JsonUtility.ToJson(continue_load_gear_save).ToString();
+        var continue_load_gear_status_save_json = JsonUtility.ToJson(continue_load_gear_status_save).ToString();
 
         //jsonにしてデータ取り出しできるようにする
         var continue_load_status_json_taking_out = JsonUtility.FromJson<Status>(continue_load_status_json);
         var continue_load_object_save_json_taking_out = JsonUtility.FromJson<ObjectSave>(continue_load_object_save_json);
         var continue_load_item_save_json_taking_out = JsonUtility.FromJson<ItemSave>(continue_load_item_save_json);
+        var continue_load_gear_save_json_taking_out = JsonUtility.FromJson<GearSave>(continue_load_gear_save_json);
+        var continue_load_gear_status_save_json_taking_out = JsonUtility.FromJson<GearStatusSave>(continue_load_gear_status_save_json);
+
         //保存したデータをGameManagerに代入
         GameManagerScript.SceneHistroy = continue_load_object_save_json_taking_out.SceneHistroy;
         GameManagerScript.SceneName = continue_load_object_save_json_taking_out.SceneName;
@@ -118,6 +126,42 @@ public class StartButton : MonoBehaviour
         }
         //上で作成したListを入れていく―
         item_database.items = itemsLoad;
+
+        //GearManagerScriptに代入。(装備管理スクリプト)
+
+        gear_manager_script.weaponID = continue_load_gear_save_json_taking_out.weaponID;
+        gear_manager_script.weaponName = continue_load_gear_save_json_taking_out.weaponName;
+        gear_manager_script.weaponPower = continue_load_gear_save_json_taking_out.weaponPower;
+        gear_manager_script.WeaponAttackSpeed = continue_load_gear_save_json_taking_out.WeaponAttackSpeed;
+
+
+        gear_manager_script.GearID = continue_load_gear_save_json_taking_out.GearID;
+        gear_manager_script.GearDefense = continue_load_gear_save_json_taking_out.GearDefense;
+        gear_manager_script.GearName = continue_load_gear_save_json_taking_out.GearName;
+
+        gear_manager_script.GearHead = continue_load_gear_save_json_taking_out.GearHead;
+        gear_manager_script.GearBody = continue_load_gear_save_json_taking_out.GearBody;
+        gear_manager_script.GearLeg = continue_load_gear_save_json_taking_out.GearLeg;
+        gear_manager_script.GearArmRight = continue_load_gear_save_json_taking_out.GearArmRight;
+        gear_manager_script.GearArmLeft = continue_load_gear_save_json_taking_out.GearArmLeft;
+
+
+        for (int i = 0; i < continue_load_gear_status_save_json_taking_out.GearID.Count; i++)
+            {
+                gears_set_script.Head.Add(continue_load_gear_status_save_json_taking_out.GearHead[i]);
+                gears_set_script.Body.Add(continue_load_gear_status_save_json_taking_out.GearBody[i]);
+                gears_set_script.Leg.Add(continue_load_gear_status_save_json_taking_out.GearLeg[i]);
+                gears_set_script.ArmsLeft.Add(continue_load_gear_status_save_json_taking_out.GearArmLeft[i]);
+                gears_set_script.ArmsRight.Add(continue_load_gear_status_save_json_taking_out.GearArmRight[i]);
+                gears_set_script.GearDefense.Add(continue_load_gear_status_save_json_taking_out.GearDefense[i]);
+                gears_set_script.GearID.Add(continue_load_gear_status_save_json_taking_out.GearID[i]);
+                gears_set_script.GearName.Add(continue_load_gear_status_save_json_taking_out.GearName[i]);
+
+            }
+
+
+
+
         //保存したデータをPlayerStautsに代入
         PlayerStatus.HP = continue_load_status_json_taking_out.HP;
         PlayerStatus.Defense = continue_load_status_json_taking_out.Defense;

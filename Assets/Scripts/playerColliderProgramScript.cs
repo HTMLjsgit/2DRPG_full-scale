@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class playerColliderProgramScript : MonoBehaviour
 {
     bool col = false;
-    public GameObject before_destroy_object;
     GameManagerScript gameManager;
     public string MoveToPlaceName;
     GameObject target;

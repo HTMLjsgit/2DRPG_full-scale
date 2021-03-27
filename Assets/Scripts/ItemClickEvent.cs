@@ -10,12 +10,16 @@ public class ItemClickEvent : MonoBehaviour
     PlayerStatus player_status;
     GearManagerScript gear_manager_script;
     public Vector2 before_move_item_position;
+    ItemGearImageStatus item_gear_image_status;
+    GearsSetScript gears_set_script;
     // Start is called before the first frame update
     void Start()
     {
         itemStatus = this.gameObject.GetComponent<ItemStatus>();
         player_status = GameObject.FindWithTag("Player").GetComponent<PlayerStatus>();
         gear_manager_script = GameObject.FindWithTag("ItemController").GetComponent<GearManagerScript>();
+        item_gear_image_status = GetComponent<ItemGearImageStatus>();
+        gears_set_script = GameObject.FindWithTag("ItemController").GetComponent<GearsSetScript>();
     }
 
     // Update is called once per frame
@@ -39,26 +43,41 @@ public class ItemClickEvent : MonoBehaviour
         player_status.DefenseSet(itemStatus.itemDefense);
         player_status.HPset(PlayerHP + itemStatus.itemLifeInCrease);
         player_status.AttackSet(itemStatus.itemPower);
-        if (gear_manager_script.weapon_gear_mode)
+
+        if (itemStatus.item_weapon_mode)
         {
-            gear_manager_script.ItemDescRemove(this.gameObject);
-        }else if (gear_manager_script.weapon_gear_mode == false)
+            gear_manager_script.ItemWeaponDescRemove(this.gameObject);
+        }
+        else if (itemStatus.item_weapon_mode == false)
         {
-            if (itemStatus.ItemType == ItemList.ItemType.Gear)
+
+            if (itemStatus.ItemType == ItemList.ItemType.Weapon)
             {
-                gear_manager_script.GearEquipment(gear_manager_script.InitHead, gear_manager_script.InitLeg, gear_manager_script.InitBody, gear_manager_script.InitArms);
-            }
-            else if (itemStatus.ItemType == ItemList.ItemType.Weapon)
-            {
-                gear_manager_script.ItemDescSet(gear_manager_script.WeaponDesc, this.gameObject);
+                gear_manager_script.ItemWeaponDescSet(gear_manager_script.WeaponDesc, this.gameObject);
 
             }
         }
 
+        if (itemStatus.item_gear_mode)
+        {
+            gear_manager_script.ItemGearDescRemove(this.gameObject);
+            gear_manager_script.GearReset();
+        }
+        else if (itemStatus.ItemType == ItemList.ItemType.Gear && itemStatus.item_gear_mode == false)
+        {
+            gear_manager_script.ItemGearDescSet(gear_manager_script.GearDesc, this.gameObject);
+            for(int i = 0; i < gears_set_script.GearID.Count; i++)
+            {
+                if(gears_set_script.GearID[i] == itemStatus.itemID)
+                {
+                    gear_manager_script.GearEquipment(gears_set_script.Head[i], gears_set_script.Leg[i], gears_set_script.Body[i], gears_set_script.ArmsLeft[i], gears_set_script.ArmsRight[i]);
+                }
+            }
+        }
 
     }
 
-    
+
 
     IEnumerator PressAnimation()
     {

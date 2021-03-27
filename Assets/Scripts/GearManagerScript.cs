@@ -5,117 +5,190 @@ using UnityEngine.UI;
 public class GearManagerScript : MonoBehaviour
 {
     [Header("セットしておきたいオブジェクト")]
-    public GameObject arms;
+    public GameObject Gears; //こいつでON OFF 表示を判断する
+    public GameObject armLeftSkin;
+    public GameObject armRightSkin;
+
     public GameObject headSkin;
     public GameObject bodySkin;
     public GameObject LegSkin;
 
 
     [Header("セットしていくDesc達")]
-    public GameObject HeadDesc;
-    public GameObject BodyDesc;
-    public GameObject ArmDesc;
-    public GameObject LegDesc;
+    public GameObject GearDesc;
     public GameObject WeaponDesc;
 
     [Header("デフォルトの装備画像")]
-    public Sprite[] InitArms;
+    public Sprite InitArmRight;
+    public Sprite InitArmLeft;
     public Sprite InitHead;
     public Sprite InitBody;
     public Sprite InitLeg;
 
 
-    [Header("武器を装備してるか")]
 
-    public bool gear_mode;
-    public bool weapon_gear_mode;
     GameObject GameManager;
 
-    //public Sprite ;
+    [Header("装備しているアイテム武器ステータス")]
+
+    public string weaponID;
+    public string weaponName;
+    public float weaponPower;
+    public float WeaponAttackSpeed;
+
+    [Header("装備しているギアステータス")]
+    public string GearID;
+
+    public string GearName;
+    public float GearDefense;
+
+    public Sprite GearHead;
+    public Sprite GearBody;
+    public Sprite GearLeg;
+    public Sprite GearArmLeft;
+    public Sprite GearArmRight;
+
+
+    Toggle gears_toggle;
+    GearsSetScript gear_set_script;
     // Start is called before the first frame update
     void Start()
     {
         GameManager = GameObject.FindWithTag("GameController");
+        gears_toggle = Gears.GetComponent<Toggle>();
+        gear_set_script = GetComponent<GearsSetScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(weapon_gear_mode);
     }
 
-    public void ItemDescSet(GameObject desc, GameObject ItemObject)
+    public void ItemGearDescSet(GameObject desc, GameObject ItemObject, bool load = false)
     {
+        //ギアの装備のDescに当てはめる
+
         ItemStatus item_status = ItemObject.GetComponent<ItemStatus>();
-        if (!item_status.item_gear_mode)
+        ItemGearImageStatus item_gear_image_status = ItemObject.GetComponent<ItemGearImageStatus>();
+        if (desc.transform.childCount == 0)
         {
+            //もしDescに何もセットされてなかったら？(通常運転)
+
             ItemObject.GetComponent<ItemClickEvent>().before_move_item_position = ItemObject.transform.position;
             ItemObject.transform.SetParent(desc.transform);
             ItemObject.transform.position = desc.transform.position;
             item_status.item_gear_mode = true;
         }
-        else
+        else if (desc.transform.childCount > 0)
         {
+            //もしDescに何かセットされていたら？
             GameObject desc_child = desc.transform.GetChild(0).gameObject;
-            ItemDescRemove(desc_child);
+            ItemGearDescRemove(desc_child);
             ItemObject.GetComponent<ItemClickEvent>().before_move_item_position = ItemObject.transform.position;
             ItemObject.transform.SetParent(desc.transform);
             ItemObject.transform.position = desc.transform.position;
-            item_status.item_gear_mode = false;
         }
-        weapon_gear_mode = true;
+        GearID = item_status.itemID;
+        GearName = item_status.ItemName;
+        GearDefense = item_status.itemDefense;
+
+        if (!load == true)
+        {
+        }
+
+        gears_toggle.isOn = true;
 
     }
-    public void ItemDescRemove(GameObject ItemObject)
+
+    public void ItemGearDescRemove(GameObject ItemObject)
     {
+        Debug.Log("I am in ItemGearDescRemove");
         ItemStatus item_status = ItemObject.GetComponent<ItemStatus>();
         ItemObject.transform.SetParent(null);
         ItemObject.transform.SetParent(GameManager.GetComponent<GameManagerScript>().ItemShowImage.transform);
+        GearName = null;
+        GearDefense = 0;
+        GearID = null;
+
+        GearHead = null;
+        GearLeg = null;
+        GearBody = null;
+        GearArmLeft = null;
+        GearArmRight = null;
+
         item_status.item_gear_mode = false;
-        Debug.Log("----------------------------------------");
-        weapon_gear_mode = false;
+    }
+    public void ItemWeaponDescSet(GameObject desc, GameObject ItemObject)
+    {
+
+        ItemStatus item_status = ItemObject.GetComponent<ItemStatus>();
+        if (desc.transform.childCount == 0)
+        {
+            //もしDescに何もセットされてなかったら？(通常運転)
+
+            ItemObject.GetComponent<ItemClickEvent>().before_move_item_position = ItemObject.transform.position;
+            ItemObject.transform.SetParent(desc.transform);
+            ItemObject.transform.position = desc.transform.position;
+        }
+        else if(desc.transform.childCount > 0)
+        {
+            //もしDescに何かセットされていたら？
+            GameObject desc_child = desc.transform.GetChild(0).gameObject;
+            ItemWeaponDescRemove(desc_child);
+            ItemObject.GetComponent<ItemClickEvent>().before_move_item_position = ItemObject.transform.position;
+            ItemObject.transform.SetParent(desc.transform);
+            ItemObject.transform.position = desc.transform.position;
+
+        }
+        weaponName = item_status.ItemName;
+        weaponPower = item_status.itemPower;
+        WeaponAttackSpeed = item_status.itemAttackSpeed;
+        weaponID = item_status.itemID;
+        item_status.item_weapon_mode = true;
+    }
+    public void ItemWeaponDescRemove(GameObject ItemObject)
+    {
+
+        ItemStatus item_status = ItemObject.GetComponent<ItemStatus>();
+        ItemObject.transform.SetParent(null);
+        ItemObject.transform.SetParent(GameManager.GetComponent<GameManagerScript>().ItemShowImage.transform);
+        item_status.item_weapon_mode = false;
+        weaponName = null;
+        weaponPower = 0;
+        WeaponAttackSpeed = 0;
+        weaponID = null;
     }
 
-    public void GearEquipment(Sprite headSkinImage,Sprite LegSkinImage, Sprite bodySkinImage, Sprite[] armsSkinImage)
+    public void GearEquipment(Sprite headSkinImage,Sprite LegSkinImage, Sprite bodySkinImage, Sprite armsSkinImageLeft, Sprite armsSkinImageRight)
     {
         //ここはギアを装備する関数。
-            for (int i = 0; i < arms.transform.childCount; i++)
-            {
-                arms.transform.GetChild(i).GetComponent<Image>().sprite = armsSkinImage[i]; //腕の装備セット
-                //　ひだり　みぎ　の順で装備
-            }
+        armLeftSkin.GetComponent<Image>().sprite = armsSkinImageLeft; //腕の装備セット
+        armRightSkin.GetComponent<Image>().sprite = armsSkinImageRight; //腕の装備セット
 
-            LegSkin.GetComponent<Image>().sprite = LegSkinImage;
-            bodySkin.GetComponent<Image>().sprite = bodySkinImage;
-            headSkin.GetComponent<Image>().sprite = headSkinImage;
-    }
-    public void Gear_part_remove(GameObject part)
-    {
-        if(part.transform.childCount == 0)
-        {
-            part.GetComponent<Image>().sprite = null;
-        }
-        else
-        {
-            //armsオブジェクトだったら(armsオブジェクトにだけ子要素があるのでそれで判断する)
-            foreach(GameObject g in part.transform)
-            {
-                g.GetComponent<Image>().sprite = null;
-            }
-        }
+        LegSkin.GetComponent<Image>().sprite = LegSkinImage;
+        bodySkin.GetComponent<Image>().sprite = bodySkinImage;
+        headSkin.GetComponent<Image>().sprite = headSkinImage;
+
+        GearHead = headSkinImage;
+        GearLeg = LegSkinImage;
+        GearBody = bodySkinImage;
+        GearArmLeft = armsSkinImageLeft;
+        GearArmRight = armsSkinImageRight;
+
+        GearBody = bodySkinImage;
 
     }
 
     public void GearReset()
     {
         //装備をすべてリセットする関数
-        foreach(GameObject g in arms.transform)
-        {
-            //腕を外す
-            g.GetComponent<Image>().sprite = null;
-        }
+        //腕を外す
+        armLeftSkin.GetComponent<Image>().sprite = null;
+        armRightSkin.GetComponent<Image>().sprite = null;
+
         LegSkin.GetComponent<Image>().sprite = null;
         bodySkin.GetComponent<Image>().sprite = null;
         headSkin.GetComponent<Image>().sprite = null;
+        gears_toggle.isOn = false;
     }
 }

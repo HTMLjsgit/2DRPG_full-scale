@@ -11,6 +11,7 @@ TagManager:
   - SaveObject
   - ItemController
   - item
+  - ItemImageAndBackground
   layers:
   - Default
   - TransparentFX
