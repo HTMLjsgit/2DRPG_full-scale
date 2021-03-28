@@ -225,6 +225,10 @@ MonoBehaviour:
   ItemImageAndBackground: {fileID: 7793700532892281120, guid: 4266886b904b1da4d854eeb9d37c1448,
     type: 3}
   wanna_destroy_item_id: []
+  wanna_un_use_scene_name:
+  - FightScene
+  - GameStart
+  - GameOver
 --- !u!114 &1580808506965233165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1106,6 +1110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f89c049ab2e733a40aa3a76fa9b66ea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitHP: 0
+  InitDefense: 0
+  InitAttack: 0
   BeforeHP: 0
   HP: 100
   Defense: 0
@@ -2495,6 +2502,11 @@ MonoBehaviour:
   Canvas: {fileID: 6435416675348679340}
   ItemShowImage: {fileID: 6435416675374361504}
   ItemAll: {fileID: 5780769424860078580}
+  wanna_un_use_scene_name:
+  - FightScene
+  - GameStart
+  - GameOver
+  home_check: 0
 --- !u!114 &6435416676530048018
 MonoBehaviour:
   m_ObjectHideFlags: 0

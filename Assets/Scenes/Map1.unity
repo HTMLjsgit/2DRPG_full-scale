@@ -1521,7 +1521,7 @@ GameObject:
   - component: {fileID: 620908036}
   - component: {fileID: 620908040}
   m_Layer: 0
-  m_Name: Item001 (3)
+  m_Name: "\u9632\u5177"
   m_TagString: item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12016,6 +12016,24 @@ PolygonCollider2D:
     type: 3}
   m_PrefabInstance: {fileID: 892232205}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1267814428 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7654240545507622598, guid: d1d5e2c38a52c6342b652ff011a0abbf,
+    type: 3}
+  m_PrefabInstance: {fileID: 7654240544625716954}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1267814429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267814428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94c17344e1d1d844db4d1ad7911be45b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!60 &1269909364 stripped
 PolygonCollider2D:
   m_CorrespondingSourceObject: {fileID: -8508650005241961311, guid: a663d6b47e35a7e46a17ae9184296c9b,
@@ -22870,3 +22888,77 @@ PolygonCollider2D:
     type: 3}
   m_PrefabInstance: {fileID: 892232205}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7654240544625716954
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7654240545507622598, guid: d1d5e2c38a52c6342b652ff011a0abbf,
+        type: 3}
+      propertyPath: m_Name
+      value: HomeCheckObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654240545507622598, guid: d1d5e2c38a52c6342b652ff011a0abbf,
+        type: 3}
+      propertyPath: m_TagString
+      value: HomeObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654240545507622599, guid: d1d5e2c38a52c6342b652ff011a0abbf,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654240545507622599, guid: d1d5e2c38a52c6342b652ff011a0abbf,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.1332142
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654240545507622599, guid: d1d5e2c38a52c6342b652ff011a0abbf,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.1414004
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654240545507622599, guid: d1d5e2c38a52c6342b652ff011a0abbf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.11555802
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654240545507622599, guid: d1d5e2c38a52c6342b652ff011a0abbf,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654240545507622599, guid: d1d5e2c38a52c6342b652ff011a0abbf,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654240545507622599, guid: d1d5e2c38a52c6342b652ff011a0abbf,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654240545507622599, guid: d1d5e2c38a52c6342b652ff011a0abbf,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654240545507622599, guid: d1d5e2c38a52c6342b652ff011a0abbf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654240545507622599, guid: d1d5e2c38a52c6342b652ff011a0abbf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654240545507622599, guid: d1d5e2c38a52c6342b652ff011a0abbf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d1d5e2c38a52c6342b652ff011a0abbf, type: 3}

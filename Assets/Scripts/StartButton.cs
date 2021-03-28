@@ -36,16 +36,19 @@ public class StartButton : MonoBehaviour
         if (start == true)
         {
             PlayerPrefs.DeleteAll();
-            Debug.Log("Starttttttttttttttttttttttttttttttttttttttt");
-
+            if (GameObject.FindWithTag("HomeObject") != null)
+            {
+                SceneManager.sceneLoaded += SceneInitLoaded;
+            }
             SceneManager.LoadScene(StartSceneName);
+         //   Application.LoadLevel(StartSceneName);
         }
         else
         {
             var continue_load_status = PlayerPrefsObject.GetObject<Status>("Status");
             var continue_load_object_save = PlayerPrefsObject.GetObject<ObjectSave>("objectSave");
             var continue_load_item_save = PlayerPrefsObject.GetObject<ItemSave>("ItemSave");
-            if(continue_load_status != null && continue_load_object_save != null)
+            if(continue_load_status != null && continue_load_object_save != null && continue_load_item_save != null)
             {
                 //保存データーがあったら
                 var continue_load_status_json = JsonUtility.ToJson(continue_load_status).ToString();
@@ -69,9 +72,19 @@ public class StartButton : MonoBehaviour
 
     }
 
+    public void SceneInitLoaded(Scene scene, LoadSceneMode sceneMode) {
+        GameObject GameManager = GameObject.FindGameObjectWithTag("GameController");
+        GameManagerScript GameManagerScript = GameManager.GetComponent<GameManagerScript>();
+        GameObject ItemController = GameObject.FindWithTag("ItemController");
+        ItemDatabase item_database = ItemController.GetComponent<ItemDatabase>();
+        //item_database.wanna_destroy_item_id = null;
+        //GameManagerScript.wanna_destroy_enemy = null;
+        GameManagerScript.home_check = true;
+        SceneManager.sceneLoaded -= SceneInitLoaded;
+    }
+
     public void SceneLoaded(Scene scene, LoadSceneMode sceneMode)
     {
-        Debug.Log("I am here ScneLoaded---------------------------------");
         GameObject ObjectGames_prefab = Instantiate(ObjectGames);
         GameObject Player = GameObject.FindGameObjectWithTag("Player");
         GameObject GameManager = GameObject.FindGameObjectWithTag("GameController");

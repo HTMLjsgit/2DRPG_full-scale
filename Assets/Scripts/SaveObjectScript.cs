@@ -117,10 +117,6 @@ public class SaveObjectScript : MonoBehaviour
     {
         
     }
-    void SceneLoaded(Scene scene, LoadSceneMode SceneMode)
-    {
-
-    }
     public void Save()
     {
                 var status =

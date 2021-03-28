@@ -33,15 +33,21 @@ public class GameManagerScript : MonoBehaviour
     public GameObject Canvas;
     public GameObject ItemShowImage;
     public GameObject ItemAll;
+    public string[] wanna_un_use_scene_name;
+    public bool home_check;
+
     // Start is called before the first frame update
     void Start()
     {
         SceneManager.sceneUnloaded += SceneUnloaded;
+        
         SceneManager.sceneLoaded += SceneLoaded;
         player = GameObject.FindGameObjectWithTag("Player");
         SceneName = SceneManager.GetActiveScene().name;
         SceneHistroy.Add(SceneName);
-        if (SceneName != "FightScene")
+        int ret = Array.IndexOf(wanna_un_use_scene_name, SceneManager.GetActiveScene().name);
+
+        if (ret < 0 && !home_check)
         {
             foreach (string wannna_destroy_name in wanna_destroy_enemy)
             {
@@ -70,11 +76,12 @@ public class GameManagerScript : MonoBehaviour
         SceneNameBefore = beforeScene.name;
     }
 
-    void SceneLoaded(Scene nextScene, LoadSceneMode mode)
+    public void SceneLoaded(Scene nextScene, LoadSceneMode mode)
     {
         SceneName = nextScene.name;
         SceneHistroy.Add(nextScene.name);
-        if (SceneName != "FightScene")
+        int ret = Array.IndexOf(wanna_un_use_scene_name, nextScene.name);
+        if (ret < 0)
         {
             foreach (string wannna_destroy_name in wanna_destroy_enemy)
             {

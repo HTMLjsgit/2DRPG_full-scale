@@ -21,9 +21,18 @@ public class SaveClick : MonoBehaviour
     public void HomeMoveClick()
     {
         SaveObject.GetComponent<SaveObjectScript>().Save();
+        ItemDatabase item_database = GameObject.FindWithTag("ItemController").GetComponent<ItemDatabase>();
+        GameManagerScript game_manager_script = GameObject.FindWithTag("GameController").GetComponent<GameManagerScript>();
+
+        item_database.wanna_destroy_item_id = null;
+        game_manager_script.wanna_destroy_enemy = null;
+        SceneManager.sceneLoaded -= item_database.SceneItemLoaded;
+        SceneManager.sceneLoaded -= game_manager_script.SceneLoaded;
+
+
+        Destroy(GameObject.FindGameObjectWithTag("ObjectsGames"));
 
         SceneManager.LoadScene("GameStart");
-        Destroy(GameObject.FindGameObjectWithTag("ObjectsGames"));
     }
 
     // Update is called once per frame

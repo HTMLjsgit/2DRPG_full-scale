@@ -19,7 +19,6 @@ public class ChaseToPlayerMovingOfEnemy : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
        // Target = PlayerGetScript.player_get.gameObject;
-        SceneManager.sceneLoaded += SceneLoaded;
         Target = GameObject.FindGameObjectWithTag("Player").gameObject;
     }
     private void Awake()
@@ -47,14 +46,7 @@ public class ChaseToPlayerMovingOfEnemy : MonoBehaviour
         }
 
     }
-    void SceneLoaded(Scene nextScene, LoadSceneMode mode)
-    {
-        if(nextScene.name == "Map1")
-        {
-            Target = GameObject.FindGameObjectWithTag("Player").gameObject;
 
-        }
-    }
     float GetAim(Vector2 me, Vector2 target)
     {
         float rad2 = Mathf.Atan2(

@@ -12,6 +12,7 @@ TagManager:
   - ItemController
   - item
   - ItemImageAndBackground
+  - HomeObject
   layers:
   - Default
   - TransparentFX

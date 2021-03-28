@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,8 @@ public class ItemDatabase : MonoBehaviour
     GameObject itemPrefab;
     GearManagerScript gearManager;
     GearsSetScript gear_set_script;
+
+    public string[] wanna_un_use_scene_name;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +48,8 @@ public class ItemDatabase : MonoBehaviour
             }
         }
         gearManager.GearEquipment(gearManager.GearHead, gearManager.GearLeg, gearManager.GearBody, gearManager.GearArmLeft, gearManager.GearArmRight);
-        if (SceneName != "FightScene")
+        int ret = Array.IndexOf(wanna_un_use_scene_name, SceneManager.GetActiveScene().name);
+        if (ret < 0)
         {
             foreach (string wannna_destroy_id in wanna_destroy_item_id)
             {
@@ -58,7 +62,8 @@ public class ItemDatabase : MonoBehaviour
                 }
             }
         }
-        SceneManager.sceneLoaded += SceneLoaded;
+        SceneManager.sceneLoaded += SceneItemLoaded;
+
     }
     private void Awake()
     {
@@ -94,11 +99,13 @@ public class ItemDatabase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+ //       Debug.Log(SceneManager.GetActiveScene().name + GameObject.Find("–h‹ï") + wanna_destroy_item_id);
     }
-    void SceneLoaded(Scene nextScene, LoadSceneMode mode)
+    public void SceneItemLoaded(Scene nextScene, LoadSceneMode mode)
     {
-        if (SceneName != "FightScene")
+        int ret = Array.IndexOf(wanna_un_use_scene_name, SceneManager.GetActiveScene().name);
+        //Debug.Log(GameObject.FindWithTag("ItemController"));
+        if (ret < 0 && GameObject.FindWithTag("ItemController") != null)
         {
             foreach (string wannna_destroy_id in wanna_destroy_item_id)
             {
@@ -110,6 +117,7 @@ public class ItemDatabase : MonoBehaviour
                     }
                 }
             }
+            //SceneManager.sceneLoaded -= SceneLoaded;
         }
     }
 }
