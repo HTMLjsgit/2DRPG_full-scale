@@ -8,6 +8,7 @@ public class EnemyStatus : MonoBehaviour
     public float HP;
     public float defense;
     public float Attack;
+    public float attack_speed;
     public string enemyName;
     public bool onSelect;
     public KeyCode get_key;
@@ -22,6 +23,8 @@ public class EnemyStatus : MonoBehaviour
         name = enemyName;
         Player = GameObject.FindGameObjectWithTag("Player");
         player_status = Player.GetComponent<PlayerStatus>();
+        //先手攻撃
+        battle_manager_script.EnemyOrPlayerAttackCheck(this);
     }
 
     // Update is called once per frame
@@ -53,7 +56,6 @@ public class EnemyStatus : MonoBehaviour
         if(HP > 0)
         {
             HP -= Attack + defense;
-            player_status.Attacked(Attack);
             AnimationAttackPlay();
             if (HP < 0)
             {
@@ -67,8 +69,14 @@ public class EnemyStatus : MonoBehaviour
             StartCoroutine(DestroyObject());
 
         }
-        battle_manager_script.UserActionButtons.transform.GetChild(0).GetComponent<Button>().Select();
+        AttackToPlayer();
         slider_hp.value = HP / 100.0f;
+    }
+
+    public void AttackToPlayer()
+    {
+        player_status.Attacked(Attack);
+        battle_manager_script.AutoSelect();
     }
 
     void AnimationAttackPlay()

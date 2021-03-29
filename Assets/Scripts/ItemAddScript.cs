@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 public class ItemAddScript : MonoBehaviour
 {
     [SerializeField]
@@ -32,6 +33,12 @@ public class ItemAddScript : MonoBehaviour
         GameManager = GameObject.FindGameObjectWithTag("GameController");
         Item_database = GameObject.FindWithTag("ItemController").GetComponent<ItemDatabase>();
         itemID += "_" + SceneManager.GetActiveScene().name; //ƒ}ƒbƒv‚²‚Æ‚ÉID‚ðÝ’è‚Å‚«‚é‚æ‚¤‚É‚·‚é‚½‚ß
+        int ret = Array.IndexOf(Item_database.wanna_destroy_item_id.ToArray(),itemID);
+        int ret2 = Array.IndexOf(Item_database.wanna_un_use_scene_name, SceneManager.GetActiveScene().name);
+        if (ret >= 0 && ret2 < 0)
+        {
+            Destroy(this.gameObject);
+        }
         if (basic_mode)
         {
             ItemAdd_to_ItemDatabase();

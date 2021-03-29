@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class BattleManagerScript : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class BattleManagerScript : MonoBehaviour
     GameManagerScript game_manager_script;
     public GameObject Canvas;
     public GameObject UserActionButtons;
+    GameObject Player;
+    GameObject Enemy;
+    PlayerStatus player_status;
+    EnemyStatus enemy_status;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +25,10 @@ public class BattleManagerScript : MonoBehaviour
         {
 
         }
+        Player = GameObject.FindWithTag("Player");
+        Enemy = GameObject.FindWithTag("enemy");
+        player_status = Player.GetComponent<PlayerStatus>();
+        enemy_status = Enemy.GetComponent<EnemyStatus>();
         game_manager_script.slider_hp.transform.SetParent(Canvas.transform);
     }
     private void Awake()
@@ -33,6 +42,7 @@ public class BattleManagerScript : MonoBehaviour
     }
     public void Finish(bool player_die)
     {
+        //戦闘が終わったら(敵が死ぬかプレイヤーが死ぬか)
         game_manager_script.slider_hp.transform.SetParent(game_manager_script.Canvas.transform);
         if (player_die == false)
         {
@@ -52,6 +62,24 @@ public class BattleManagerScript : MonoBehaviour
 
     }
 
+    public void AutoSelect()
+    {
+        Debug.Log("AutoSelectされるはずうううううううううううううううう");
+        //セレクトしておく関数
+        UserActionButtons.transform.GetChild(0).GetComponent<Button>().Select();
+    }
+
+
+    public void EnemyOrPlayerAttackCheck(EnemyStatus enemy_status_get)
+    {
+        float PlayerAttackSpeed = player_status.AttackSpeed;
+        float EnemyAttackSpeed = enemy_status_get.attack_speed;
+        if(PlayerAttackSpeed <= EnemyAttackSpeed)
+        {
+            //もし敵の攻撃すピートがプレイヤーの攻撃スピードより速かったら
+            player_status.Attacked(enemy_status_get.Attack);
+        }
+    }
     IEnumerator GameSceneMove(string SceneName)
     {
         yield return new WaitForSeconds(0.5f);

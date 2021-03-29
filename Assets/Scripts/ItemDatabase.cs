@@ -48,20 +48,20 @@ public class ItemDatabase : MonoBehaviour
             }
         }
         gearManager.GearEquipment(gearManager.GearHead, gearManager.GearLeg, gearManager.GearBody, gearManager.GearArmLeft, gearManager.GearArmRight);
-        int ret = Array.IndexOf(wanna_un_use_scene_name, SceneManager.GetActiveScene().name);
-        if (ret < 0)
+        /*if (ret < 0)
         {
             foreach (string wannna_destroy_id in wanna_destroy_item_id)
             {
                 foreach (GameObject item in GameObject.FindGameObjectsWithTag("item"))
                 {
+                    Debug.Log("I want to be a " + item.GetComponent<ItemAddScript>().itemID + "_" + SceneName);
                     if (wannna_destroy_id == item.GetComponent<ItemAddScript>().itemID + "_" + SceneName)
                     {
                         Destroy(item);
                     }
                 }
             }
-        }
+        }*/
         SceneManager.sceneLoaded += SceneItemLoaded;
 
     }

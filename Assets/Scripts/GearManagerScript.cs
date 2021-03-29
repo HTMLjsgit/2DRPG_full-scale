@@ -73,7 +73,9 @@ public class GearManagerScript : MonoBehaviour
         //ギアの装備のDescに当てはめる
 
         ItemStatus item_status = ItemObject.GetComponent<ItemStatus>();
+        //装備したときにステータスを当てはめる
         player_status.DefenseSet(item_status.itemDefense);
+        player_status.AttackSpeedSet(item_status.itemAttackSpeed);
         ItemGearImageStatus item_gear_image_status = ItemObject.GetComponent<ItemGearImageStatus>();
         if (desc.transform.childCount == 0)
         {

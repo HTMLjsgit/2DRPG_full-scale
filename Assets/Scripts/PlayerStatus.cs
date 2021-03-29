@@ -16,14 +16,17 @@ public class PlayerStatus : MonoBehaviour
     private float MaxHP;
     public float Defense;
     public float Attack;
+    public float AttackSpeed;
     public Vector2 position;
     GameObject GameManager;
     GameManagerScript game_manager_script;
     Slider sliderHP;
+    PlayerMoveController player_move_controller;
     // Start is called before the first frame update
     void Start()
     {
         GameManager = GameObject.FindGameObjectWithTag("GameController");
+        player_move_controller = GetComponent<PlayerMoveController>();
         game_manager_script = GameManager.GetComponent<GameManagerScript>();
         SceneManager.sceneUnloaded += SceneUnLoaded;
         sliderHP = game_manager_script.slider_hp;
@@ -58,6 +61,14 @@ public class PlayerStatus : MonoBehaviour
     {
         Attack = set;
     }
+    public void AttackSpeedSet(float set)
+    {
+        AttackSpeed = set;
+    }
+    public void SpeedSet(float set)
+    {
+        player_move_controller.speed = set;
+    }
     public void HPset(float set)
     {
         if(HP > 0 && MaxHP <= HP)
@@ -70,7 +81,7 @@ public class PlayerStatus : MonoBehaviour
         //float damage = Mathf.Max(Attacked - defense);
         if (HP > 0)
         {
-            HP -= Attacked + Defense;
+            HP = HP - Attacked - Defense;
             if (HP < 0)
             {
                 BattleManagerScript battle_manager_script = GameObject.FindGameObjectWithTag("BattleManager").GetComponent<BattleManagerScript>();

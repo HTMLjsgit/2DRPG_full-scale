@@ -11,6 +11,7 @@ public class RestartScript : MonoBehaviour
     PlayerStatus PlayerStatus;
     public string[] do_not_wanna_move_scene_name;
     Slider slider_hp;
+    public string scene_move_name;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +34,15 @@ public class RestartScript : MonoBehaviour
         Player.SetActive(true);
         PlayerStatus.HP = PlayerStatus.BeforeHP;
         slider_hp.value = PlayerStatus.HP / 100.0f;
-        SceneManager.LoadScene(game_manager_script.SceneHistroy[game_manager_script.SceneHistroy.Count - 3]);
+        for(int i = game_manager_script.SceneHistroy.Count - 1; 0 <= i; i--)
+        {
+            //Œã‚ë‚©‚çƒ‹[ƒv
+            if(game_manager_script.SceneHistroy[i] != "FightScene" && game_manager_script.SceneHistroy[i] != "GameOver")
+            {
+                SceneManager.LoadScene(game_manager_script.SceneHistroy[i]);
+                break;
+            }
+        }
+        //SceneManager.LoadScene(game_manager_script.SceneHistroy);
     }
 }

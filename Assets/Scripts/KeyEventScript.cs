@@ -15,21 +15,27 @@ public class KeyEventScript : MonoBehaviour
     public string[] UnDisplaySceneName;
     string SceneName;
     PlayerMoveController player_move_controller;
+    GameObject ImageShow;
+    Toggle menu_toggle;
+    Toggle item_show_menu_toggle;
     // Start is called before the first frame update
     void Start()
     {
         player_move_controller = GameObject.FindWithTag("Player").GetComponent<PlayerMoveController>();
         ItemAll = this.gameObject.GetComponent<GameManagerScript>().ItemAll;
         Menu = this.gameObject.GetComponent<GameManagerScript>().Menu.gameObject;
+        ImageShow = this.gameObject.GetComponent<GameManagerScript>().ItemShowImage;
+        menu_toggle = Menu.GetComponent<Toggle>();
+        item_show_menu_toggle = ItemAll.GetComponent<Toggle>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(MenuDisplayKeyCode))
+        if (Input.GetKeyDown(MenuDisplayKeyCode) && !item_show_menu_toggle.isOn)
         {
             MenuDisplay();
-        }else if (Input.GetKeyDown(ItemMenuDisplayKeyCode))
+        }else if (Input.GetKeyDown(ItemMenuDisplayKeyCode) && !menu_toggle.isOn)
         {
             ItemMenuShow();
         }
@@ -37,26 +43,26 @@ public class KeyEventScript : MonoBehaviour
 
     public void MenuDisplay()
     {
+
         SceneName = SceneManager.GetActiveScene().name;
-        int ret = Array.IndexOf(UnDisplaySceneName, SceneName); //現在のシーンと表示したくないシーンがあったら
+            int ret = Array.IndexOf(UnDisplaySceneName, SceneName); //現在のシーンと表示したくないシーンがあったら
             if (ret < 0)
             {
-                if (Menu_Display)
+                Menu_Display = !menu_toggle.isOn;
+                if (!Menu_Display)
                 {
                     //player_move_controller.enabled = true;
 
                     player_move_controller.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-                    Menu_Display = false;
 
                 }
-                else
+                else if(Menu_Display)
                 {
                     player_move_controller.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-                    Menu_Display = true;
                 }
                 if (!ItemMenuDisplay)
                 {
-                    Menu.GetComponent<Toggle>().isOn = Menu_Display;
+                    menu_toggle.isOn = Menu_Display;
                 }
                 Menu.GetComponent<Animator>().SetBool("display", Menu_Display);
                 player_move_controller.GetComponent<Animator>().enabled = !Menu_Display;
@@ -75,15 +81,14 @@ public class KeyEventScript : MonoBehaviour
         int ret = Array.IndexOf(UnDisplaySceneName, SceneName);  //現在のシーンと表示したくないシーンがあったら
         if (ret < 0)
             {
-                if (ItemMenuDisplay)
+                ItemMenuDisplay = !item_show_menu_toggle.isOn;
+                if (!ItemMenuDisplay)
                 {
                     player_move_controller.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-                    ItemMenuDisplay = false;
                 }
                 else
                 {
                     player_move_controller.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-                    ItemMenuDisplay = true;
                 }
                 if (!Menu_Display)
                 {
@@ -96,7 +101,7 @@ public class KeyEventScript : MonoBehaviour
                 player_move_controller.moveMode = !ItemMenuDisplay;
                 if (ItemAll.transform.childCount != 0 && ItemMenuDisplay)
                 {
-                   BasicSelectObject(ItemAll.transform.GetChild(0).gameObject);
+                     BasicSelectObject(GameObject.FindGameObjectsWithTag("ItemImageAndBackground")[0]);
                 }
         }
     }

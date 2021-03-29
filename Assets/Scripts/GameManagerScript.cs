@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -47,7 +48,7 @@ public class GameManagerScript : MonoBehaviour
         SceneHistroy.Add(SceneName);
         int ret = Array.IndexOf(wanna_un_use_scene_name, SceneManager.GetActiveScene().name);
 
-        if (ret < 0 && !home_check)
+        if (ret < 0)
         {
             foreach (string wannna_destroy_name in wanna_destroy_enemy)
             {
@@ -70,6 +71,7 @@ public class GameManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
     void SceneUnloaded(Scene beforeScene)
     {
