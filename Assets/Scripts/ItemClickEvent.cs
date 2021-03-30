@@ -12,6 +12,7 @@ public class ItemClickEvent : MonoBehaviour
     public Vector2 before_move_item_position;
     ItemGearImageStatus item_gear_image_status;
     GearsSetScript gears_set_script;
+    GameManagerScript game_maanger_script;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,7 @@ public class ItemClickEvent : MonoBehaviour
         gear_manager_script = GameObject.FindWithTag("ItemController").GetComponent<GearManagerScript>();
         item_gear_image_status = GetComponent<ItemGearImageStatus>();
         gears_set_script = GameObject.FindWithTag("ItemController").GetComponent<GearsSetScript>();
+        game_maanger_script = GameObject.FindWithTag("GameController").GetComponent<GameManagerScript>();
     }
 
     // Update is called once per frame
@@ -74,8 +76,8 @@ public class ItemClickEvent : MonoBehaviour
         }else if(itemStatus.ItemType == ItemList.ItemType.Consumable)
         {
             //è¡îÔÉAÉCÉeÉÄÇæÇ¡ÇΩÇÁ
-            player_status.HPset(PlayerHP + itemStatus.itemLifeInCrease);
-            Destroy(this.gameObject);
+            player_status.HPset(PlayerHP + itemStatus.itemLifeInCrease, this.gameObject);
+
         }
 
     }

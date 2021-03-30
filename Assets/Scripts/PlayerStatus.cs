@@ -13,14 +13,14 @@ public class PlayerStatus : MonoBehaviour
 
     public float BeforeHP;
     public float HP;
-    private float MaxHP;
+    public float MaxHP;
     public float Defense;
     public float Attack;
     public float AttackSpeed;
     public Vector2 position;
     GameObject GameManager;
     GameManagerScript game_manager_script;
-    Slider sliderHP;
+    public Slider sliderHP;
     PlayerMoveController player_move_controller;
     // Start is called before the first frame update
     void Start()
@@ -42,7 +42,8 @@ public class PlayerStatus : MonoBehaviour
     }
     void SceneUnLoaded(Scene thisScene)
     {
-        if(thisScene.name != "FightScene")
+        int ret = Array.IndexOf(game_manager_script.wanna_un_use_scene_name, thisScene.name);
+        if(ret < 0)
         {
             BeforeHP = HP; //í‚¤‘O‚ÌHP‚ð•Û‘¶‚µ‚Ä‚¨‚­B
 
@@ -69,19 +70,38 @@ public class PlayerStatus : MonoBehaviour
     {
         player_move_controller.speed = set;
     }
-    public void HPset(float set)
+    public void HPset(float set, GameObject itemObject = null)
     {
-        if(HP > 0 && MaxHP <= HP)
+        Debug.Log(MaxHP >= set); // 100 <= 110
+        if (HP > 0 && MaxHP >= set)
         {
             HP = set;
+        }else if(HP > 0 && HP <= MaxHP && MaxHP <= set && MaxHP != HP)
+        {
+            HP = MaxHP;
         }
+        else if (HP > 0 && MaxHP == HP)
+        {
+            return;
+        }
+        if(itemObject != null)
+        {
+            Destroy(itemObject);
+            game_manager_script.BasicSelectObject(GameObject.FindWithTag("ItemImageAndBackground"));
+        }
+
+        sliderHP.value = HP / 100.0f;
     }
     public void Attacked(float Attacked)
     {
         //float damage = Mathf.Max(Attacked - defense);
         if (HP > 0)
         {
-            HP = HP - Attacked - Defense;
+            float Damage = Defense - Attacked;
+            if(Damage < 0)
+            {
+                HP = HP + Damage;
+            }
             if (HP < 0)
             {
                 BattleManagerScript battle_manager_script = GameObject.FindGameObjectWithTag("BattleManager").GetComponent<BattleManagerScript>();

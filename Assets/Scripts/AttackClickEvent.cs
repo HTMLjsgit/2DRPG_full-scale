@@ -20,6 +20,6 @@ public class AttackClickEvent : MonoBehaviour
 
     public void OnClick()
     {
-            fight_enemy_create.gameObject.transform.GetChild(0).GetComponent<Selectable>().Select();
+       fight_enemy_create.gameObject.transform.GetChild(0).GetComponent<Selectable>().Select();
     }
 }

@@ -16,6 +16,10 @@ public class BattleManagerScript : MonoBehaviour
     GameObject Enemy;
     PlayerStatus player_status;
     EnemyStatus enemy_status;
+    Vector2 PlayerSliderPosition;
+    Vector2 MoveToSliderPosition;
+    public GameObject MoveToSliderObject;
+    public GameObject PlayerSliderCanvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,11 +29,20 @@ public class BattleManagerScript : MonoBehaviour
         {
 
         }
+        MoveToSliderPosition = MoveToSliderObject.transform.position;
+
         Player = GameObject.FindWithTag("Player");
         Enemy = GameObject.FindWithTag("enemy");
         player_status = Player.GetComponent<PlayerStatus>();
+        PlayerSliderCanvas = game_manager_script.SliderPlayerDefaultBox;
         enemy_status = Enemy.GetComponent<EnemyStatus>();
-        game_manager_script.slider_hp.transform.SetParent(Canvas.transform);
+
+        PlayerSliderPosition = game_manager_script.SliderPlayerDefaultBox.transform.position;
+        player_status.sliderHP.transform.position = MoveToSliderPosition;
+        player_status.sliderHP.transform.SetParent(MoveToSliderObject.transform);
+
+        //slider_hp.transform.SetParent(Canvas.transform);
+        //SceneManager.sceneLoaded += SceneLoaded;
     }
     private void Awake()
     {
@@ -43,15 +56,12 @@ public class BattleManagerScript : MonoBehaviour
     public void Finish(bool player_die)
     {
         //戦闘が終わったら(敵が死ぬかプレイヤーが死ぬか)
-        game_manager_script.slider_hp.transform.SetParent(game_manager_script.Canvas.transform);
         if (player_die == false)
         {
             //敵が全滅したとき。
             game_manager_script.wanna_destroy_enemy.Add(game_manager_script.EnemyFightName);
             Initialize(); //ここでGameManagerの配列を初期化
-            
             StartCoroutine(GameSceneMove(game_manager_script.SceneNameBefore));
-            
         }
         else
         {
@@ -59,7 +69,9 @@ public class BattleManagerScript : MonoBehaviour
             Initialize(); //ここでGameManagerの配列を初期化
             StartCoroutine(GameSceneMove("GameOver")); //GameOverに飛ばす
         }
-
+        player_status.sliderHP.transform.SetParent(null);
+        player_status.sliderHP.transform.SetParent(PlayerSliderCanvas.transform);
+        player_status.sliderHP.transform.position = PlayerSliderPosition;
     }
 
     public void AutoSelect()
@@ -76,6 +88,7 @@ public class BattleManagerScript : MonoBehaviour
         float EnemyAttackSpeed = enemy_status_get.attack_speed;
         if(PlayerAttackSpeed <= EnemyAttackSpeed)
         {
+
             //もし敵の攻撃すピートがプレイヤーの攻撃スピードより速かったら
             player_status.Attacked(enemy_status_get.Attack);
         }
@@ -93,5 +106,11 @@ public class BattleManagerScript : MonoBehaviour
         game_manager_script.Attack.Clear();
         game_manager_script.Image.Clear();
         game_manager_script.Defense.Clear();
+    }
+
+    public void SceneLoaded(Scene scene, LoadSceneMode mode) {
+        Debug.Log("heloooooooooooooooo");
+        game_manager_script.slider_hp.transform.SetParent(null);
+        SceneManager.sceneLoaded -= SceneLoaded;
     }
 }

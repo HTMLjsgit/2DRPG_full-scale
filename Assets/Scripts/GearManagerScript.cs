@@ -202,4 +202,9 @@ public class GearManagerScript : MonoBehaviour
         headSkin.GetComponent<Image>().sprite = null;
         gears_toggle.isOn = false;
     }
+
+    public void InitSelectItemIcon()
+    {
+
+    }
 }

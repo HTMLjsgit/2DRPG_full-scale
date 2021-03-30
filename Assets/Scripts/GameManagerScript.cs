@@ -36,7 +36,8 @@ public class GameManagerScript : MonoBehaviour
     public GameObject ItemAll;
     public string[] wanna_un_use_scene_name;
     public bool home_check;
-
+    public GameObject SliderPlayerDefaultBox;
+    public float fps;
     // Start is called before the first frame update
     void Start()
     {
@@ -71,7 +72,7 @@ public class GameManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        fps = 1f / Time.deltaTime;
     }
     void SceneUnloaded(Scene beforeScene)
     {
@@ -94,6 +95,23 @@ public class GameManagerScript : MonoBehaviour
                         Destroy(enemy);
                     }
                 }
+            }
+        }
+    }
+
+    public void BasicSelectObject(GameObject select_object)
+    {
+        Button button = select_object.GetComponent<Button>();
+        Selectable selectable = select_object.GetComponent<Selectable>();
+        if (select_object != null)
+        {
+            if (button != null)
+            {
+                button.Select();
+            }
+            else if (selectable != null)
+            {
+                selectable.Select();
             }
         }
     }

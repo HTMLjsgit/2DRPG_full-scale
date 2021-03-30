@@ -18,6 +18,7 @@ public class KeyEventScript : MonoBehaviour
     GameObject ImageShow;
     Toggle menu_toggle;
     Toggle item_show_menu_toggle;
+    GameManagerScript game_manager_script;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +28,7 @@ public class KeyEventScript : MonoBehaviour
         ImageShow = this.gameObject.GetComponent<GameManagerScript>().ItemShowImage;
         menu_toggle = Menu.GetComponent<Toggle>();
         item_show_menu_toggle = ItemAll.GetComponent<Toggle>();
+        game_manager_script = GetComponent<GameManagerScript>();
     }
 
     // Update is called once per frame
@@ -70,14 +72,15 @@ public class KeyEventScript : MonoBehaviour
                 if (Menu_Display)
                 {
                     GameObject g = Menu.transform.GetChild(0).gameObject;
-                    BasicSelectObject(g);
+                    game_manager_script.BasicSelectObject(g);
                 }
             }
     }
 
     public void ItemMenuShow() {
         SceneName = this.gameObject.GetComponent<GameManagerScript>().SceneName;
-
+        GameObject[] ItemImageAndBackground = GameObject.FindGameObjectsWithTag("ItemImageAndBackground");
+        Debug.Log(SceneName);
         int ret = Array.IndexOf(UnDisplaySceneName, SceneName);  //現在のシーンと表示したくないシーンがあったら
         if (ret < 0)
             {
@@ -99,27 +102,12 @@ public class KeyEventScript : MonoBehaviour
                 ItemAll.GetComponent<Animator>().SetBool("show", ItemMenuDisplay);
                 player_move_controller.GetComponent<Animator>().enabled = !ItemMenuDisplay;
                 player_move_controller.moveMode = !ItemMenuDisplay;
-                if (ItemAll.transform.childCount != 0 && ItemMenuDisplay)
+                if (game_manager_script.ItemShowImage.transform.childCount < 0 && ItemMenuDisplay)
                 {
-                     BasicSelectObject(GameObject.FindGameObjectsWithTag("ItemImageAndBackground")[0]);
+                    game_manager_script.BasicSelectObject(ItemImageAndBackground[0]);
                 }
         }
     }
 
-    void BasicSelectObject(GameObject select_object)
-    {
-        Button button = select_object.GetComponent<Button>();
-        Selectable selectable = select_object.GetComponent<Selectable>();
-        if(select_object != null)
-        {
-            if (button != null)
-            {
-                button.Select();
-            }
-            else if (selectable != null)
-            {
-                selectable.Select();
-            }
-        }
-    }
+
 }
