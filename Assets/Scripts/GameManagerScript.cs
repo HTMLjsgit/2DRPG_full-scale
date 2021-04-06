@@ -21,6 +21,8 @@ public class GameManagerScript : MonoBehaviour
     public List<float> HP = new List<float>();
     public List<float> Attack = new List<float>();
     public List<float> Defense = new List<float>();
+    public List<float> AttackSpeed = new List<float>();
+    public List<int> InitTurn = new List<int>();
     public List<Sprite> Image = new List<Sprite>();
     public static GameManagerScript gameManager;
     public string EnemyFightName;

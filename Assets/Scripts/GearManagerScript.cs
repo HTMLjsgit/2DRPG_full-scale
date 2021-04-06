@@ -98,11 +98,6 @@ public class GearManagerScript : MonoBehaviour
         GearID = item_status.itemID;
         GearName = item_status.ItemName;
         GearDefense = item_status.itemDefense;
-
-        if (!load == true)
-        {
-        }
-
         gears_toggle.isOn = true;
 
     }
@@ -127,7 +122,6 @@ public class GearManagerScript : MonoBehaviour
     }
     public void ItemWeaponDescSet(GameObject desc, GameObject ItemObject)
     {
-
         ItemStatus item_status = ItemObject.GetComponent<ItemStatus>();
         player_status.AttackSet(item_status.itemPower);
 

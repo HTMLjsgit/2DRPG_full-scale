@@ -1492,12 +1492,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f89c049ab2e733a40aa3a76fa9b66ea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitHP: 0
+  InitHP: 100
   InitDefense: 0
   InitAttack: 0
   BeforeHP: 0
   HP: 100
-  MaxHP: 0
+  MaxHP: 100
   Defense: 0
   Attack: 2
   AttackSpeed: 0
@@ -1588,6 +1588,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6435416675099289670}
   - component: {fileID: 6435416675099289671}
+  - component: {fileID: 1495206679910093486}
   m_Layer: 0
   m_Name: ObjectsGames
   m_TagString: ObjectsGames
@@ -1625,6 +1626,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b332732413e2f74b8bd3a64c1e98a5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1495206679910093486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6435416675099289665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc88d7b8ba41c7145a0dd723c65142fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6435416675294822094
@@ -2459,6 +2472,7 @@ GameObject:
   - component: {fileID: 6435416675899903333}
   - component: {fileID: 6435416675899903335}
   - component: {fileID: 6435416675899903332}
+  - component: {fileID: 6225188987446499641}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2546,6 +2560,18 @@ MonoBehaviour:
   moveSpeed: 0.1
   maxPosition: {x: 2.397313, y: 0.31}
   minPosition: {x: -1, y: -3}
+--- !u!114 &6225188987446499641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6435416675899903334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc88d7b8ba41c7145a0dd723c65142fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6435416675985356687
 GameObject:
   m_ObjectHideFlags: 0
@@ -2862,6 +2888,7 @@ GameObject:
   - component: {fileID: 6435416676530048028}
   - component: {fileID: 6435416676530048029}
   - component: {fileID: 6435416676530048018}
+  - component: {fileID: 935942692659177320}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -2917,7 +2944,7 @@ MonoBehaviour:
   - GameStart
   - GameOver
   home_check: 0
-  SliderPlayerDefaultBox: {fileID: 0}
+  SliderPlayerDefaultBox: {fileID: 3352046111101219147}
   fps: 0
 --- !u!114 &6435416676530048018
 MonoBehaviour:
@@ -2937,6 +2964,18 @@ MonoBehaviour:
   - FightScene
   - GameOver
   - GameStart
+--- !u!114 &935942692659177320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6435416676530048031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37ff9a6c9a2cf894881888928991dd88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6550569531756283494
 GameObject:
   m_ObjectHideFlags: 0

@@ -173,6 +173,10 @@ MonoBehaviour:
   UserActionButtons: {fileID: 2055263998}
   MoveToSliderObject: {fileID: 1211052064}
   PlayerSliderCanvas: {fileID: 0}
+  ButtonAll:
+  - {fileID: 1903867030}
+  - {fileID: 172698172}
+  - {fileID: 879544350}
 --- !u!1 &172698169
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,6 +190,8 @@ GameObject:
   - component: {fileID: 172698173}
   - component: {fileID: 172698172}
   - component: {fileID: 172698171}
+  - component: {fileID: 172698175}
+  - component: {fileID: 172698176}
   m_Layer: 5
   m_Name: DefenseButton
   m_TagString: Untagged
@@ -270,9 +276,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 172698171}
-        m_TargetAssemblyTypeName: GameObjectSelectKeyPush, Assembly-CSharp
-        m_MethodName: OnSelect
+      - m_Target: {fileID: 172698175}
+        m_TargetAssemblyTypeName: DefenseClickEvent, Assembly-CSharp
+        m_MethodName: OnClickForDefense
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -320,6 +326,47 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 172698169}
   m_CullTransparentMesh: 0
+--- !u!114 &172698175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172698169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c211935482cb7924ca037f3d09ae8a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &172698176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172698169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 8
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 172698171}
+          m_TargetAssemblyTypeName: GameObjectSelectKeyPush, Assembly-CSharp
+          m_MethodName: OnSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &339543284
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,7 +1035,7 @@ MonoBehaviour:
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnLeft: {fileID: 879544350}
     m_SelectOnRight: {fileID: 172698172}
   m_Transition: 1
   m_Colors:
@@ -1184,8 +1231,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: 50, y: 50}
+  m_CellSize: {x: 70, y: 70}
+  m_Spacing: {x: 100, y: 100}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!114 &2087829728

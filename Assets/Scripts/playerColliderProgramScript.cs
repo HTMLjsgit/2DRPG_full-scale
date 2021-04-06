@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 public class playerColliderProgramScript : MonoBehaviour
 {
     bool col = false;
@@ -14,8 +14,13 @@ public class playerColliderProgramScript : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerScript>();
+        SceneManager.sceneLoaded += SceneLoaded;
     }
-
+    public void SceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        gameManager.ItemAll.GetComponent<Toggle>().isOn = false;
+        SceneManager.sceneLoaded -= SceneLoaded;
+    }
     private void Awake()
     {
     }
@@ -46,9 +51,12 @@ public class playerColliderProgramScript : MonoBehaviour
                 gameManager.Defense.Add(enemy_set_script.Defense[i]);
                 gameManager.Image.Add(enemy_set_script.Image[i]);
                 gameManager.HP.Add(enemy_set_script.HP[i]);
+                gameManager.AttackSpeed.Add(enemy_set_script.AttackSpeed[i]);
+                gameManager.InitTurn.Add(enemy_set_script.InitTurnCount[i]);
             }
             gameManager.EnemyFightName = collision.gameObject.name;
             MoveToPlaceName = collision.gameObject.tag;
+            
             Destroy(collision.gameObject);
             SceneManager.LoadScene("FightScene");    
         }

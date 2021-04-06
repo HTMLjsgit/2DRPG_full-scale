@@ -367,7 +367,7 @@ MonoBehaviour:
   - Enemy1
   - Enemy2
   HP:
-  - 10
+  - 2
   - 4
   Attack:
   - 3
@@ -375,6 +375,10 @@ MonoBehaviour:
   Defense:
   - 3
   - 2
+  AttackSpeed:
+  - 0
+  - 0
+  InitTurnCount: 0300000002000000
   Image:
   - {fileID: 21300000, guid: ac468331b8f34df4c841be1fcc94ce91, type: 3}
   - {fileID: 2029657367584970431, guid: 04841cb150999a848acd58d20a8752d2, type: 3}
@@ -974,6 +978,10 @@ MonoBehaviour:
   Defense:
   - 11
   - 14
+  AttackSpeed:
+  - 0
+  - 0
+  InitTurnCount: 0000000000000000
   Image:
   - {fileID: 21300000, guid: 2e01cee15a2f10843a46496a8ad369a9, type: 3}
   - {fileID: 21300000, guid: ac468331b8f34df4c841be1fcc94ce91, type: 3}
@@ -1805,6 +1813,10 @@ MonoBehaviour:
   Defense:
   - 3
   - 2
+  AttackSpeed:
+  - 0
+  - 0
+  InitTurnCount: 0000000000000000
   Image:
   - {fileID: 21300000, guid: ac468331b8f34df4c841be1fcc94ce91, type: 3}
   - {fileID: 2029657367584970431, guid: 04841cb150999a848acd58d20a8752d2, type: 3}
@@ -11379,10 +11391,10 @@ MonoBehaviour:
   - Enemy3
   - Enemy4
   HP:
-  - 2
-  - 2
-  - 32
-  - 10
+  - 1000
+  - 1000
+  - 10000
+  - 432
   Attack:
   - 1
   - 1
@@ -11393,6 +11405,12 @@ MonoBehaviour:
   - 14
   - 14
   - 14
+  AttackSpeed:
+  - 1
+  - 3
+  - 1
+  - 0
+  InitTurnCount: 00000000000000000000000000000000
   Image:
   - {fileID: 21300000, guid: 2e01cee15a2f10843a46496a8ad369a9, type: 3}
   - {fileID: 21300000, guid: ac468331b8f34df4c841be1fcc94ce91, type: 3}
@@ -11454,6 +11472,10 @@ MonoBehaviour:
   Defense:
   - 3
   - 2
+  AttackSpeed:
+  - 0
+  - 0
+  InitTurnCount: 0000000000000000
   Image:
   - {fileID: 21300000, guid: ac468331b8f34df4c841be1fcc94ce91, type: 3}
   - {fileID: 2029657367584970431, guid: 04841cb150999a848acd58d20a8752d2, type: 3}
@@ -12339,6 +12361,10 @@ MonoBehaviour:
   Defense:
   - 43
   - 321321300
+  AttackSpeed:
+  - 0
+  - 0
+  InitTurnCount: 0000000000000000
   Image:
   - {fileID: 21300000, guid: ac468331b8f34df4c841be1fcc94ce91, type: 3}
   - {fileID: 2029657367584970431, guid: 04841cb150999a848acd58d20a8752d2, type: 3}
@@ -21597,6 +21623,11 @@ PrefabInstance:
       propertyPath: sliderHP
       value: 
       objectReference: {fileID: 2124970156}
+    - target: {fileID: 6435416674742402786, guid: 22e5d234dc1952443b1933e61636aba1,
+        type: 3}
+      propertyPath: AttackSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6435416675099289665, guid: 22e5d234dc1952443b1933e61636aba1,
         type: 3}
       propertyPath: m_Name
@@ -21820,6 +21851,10 @@ MonoBehaviour:
   Defense:
   - 43
   - 321321300
+  AttackSpeed:
+  - 0
+  - 0
+  InitTurnCount: 0000000000000000
   Image:
   - {fileID: 21300000, guid: ac468331b8f34df4c841be1fcc94ce91, type: 3}
   - {fileID: 2029657367584970431, guid: 04841cb150999a848acd58d20a8752d2, type: 3}
@@ -22035,6 +22070,10 @@ MonoBehaviour:
   Defense:
   - 11
   - 14
+  AttackSpeed:
+  - 0
+  - 0
+  InitTurnCount: 0000000000000000
   Image:
   - {fileID: 21300000, guid: 2e01cee15a2f10843a46496a8ad369a9, type: 3}
   - {fileID: 21300000, guid: ac468331b8f34df4c841be1fcc94ce91, type: 3}

@@ -12,19 +12,36 @@ public class EnemyStatus : MonoBehaviour
     public string enemyName;
     public bool onSelect;
     public KeyCode get_key;
+    public bool enemy_first_attack = false;
     GameObject Player;
     PlayerStatus player_status;
     BattleManagerScript battle_manager_script;
     public Slider slider_hp;
+    public GameObject EnemyNameText;
+    public GameObject EnemyTurnText;
+    GameObject GameManager;
+
+    [Header("ターン数")]
+    public int InitTurn;
+
+    [Header("それぞれの戦闘設定")]
+    public int MyTurn;
+    public int MyID;
+    public bool AttackNow;
+
+    public bool IsDestroy;
     // Start is called before the first frame update
     void Start()
     {
+        MyTurn = InitTurn;
         battle_manager_script = GameObject.FindGameObjectWithTag("BattleManager").GetComponent<BattleManagerScript>();
         name = enemyName;
         Player = GameObject.FindGameObjectWithTag("Player");
         player_status = Player.GetComponent<PlayerStatus>();
+        GameManager = GameObject.FindWithTag("GameController");
+        EnemyTurnText.GetComponent<Text>().text = "残りのターン: " + MyTurn.ToString();
         //先手攻撃
-        battle_manager_script.EnemyOrPlayerAttackCheck(this);
+        battle_manager_script.EnemySpeedAttackCheck(this);
     }
 
     // Update is called once per frame
@@ -48,36 +65,55 @@ public class EnemyStatus : MonoBehaviour
     }
     public void OnClick()
     {
-        Attacked(player_status.Attack);
+        if (battle_manager_script.operation_mode)
+        {
+            StartCoroutine(Attacked(player_status.Attack));
+        }
     }
-    public void Attacked(float Attacked)
+    public IEnumerator Attacked(float Attacked)
     {
         //float damage = Mathf.Max(Attacked - defense);
         if(HP > 0)
         {
             HP -= Attack + defense;
             AnimationAttackPlay();
-            if (HP < 0)
-            {
-                kill_all_enemy_check_script.kill_all_enemy_script.Check();
-                StartCoroutine(DestroyObject());
-            }
+
         }
         else
         {
-            kill_all_enemy_check_script.kill_all_enemy_script.Check();
-            StartCoroutine(DestroyObject());
+
 
         }
-        AttackToPlayer();
+        //GameManager.GetComponent<GameObjectShakeScript>().GameObjectShake(10f, 5f, this.gameObject);
+        battle_manager_script.ButtonAllInvalid();
         slider_hp.value = HP / 100.0f;
+        //StartCoroutine(AttackToPlayer());
+        foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("enemy"))
+        {
+            if(enemy != null)
+            {
+                battle_manager_script.EnemyTurnFallDown(enemy.GetComponent<EnemyStatus>());
+                yield return new WaitForSeconds(1f);
+                Debug.Log("アッタクされるはずだが");
+                StartCoroutine(battle_manager_script.TimeTurnCheckAndAttackToPlayer(enemy.GetComponent<EnemyStatus>()));
+
+            }
+        }
+        if (HP < 0)
+        {
+            kill_all_enemy_check_script.kill_all_enemy_script.Check();
+            StartCoroutine(DestroyObject());
+        }
     }
 
-    public void AttackToPlayer()
+    public IEnumerator AttackToPlayer()
     {
+        yield return new WaitForSeconds(1f);
         player_status.Attacked(Attack);
-        battle_manager_script.AutoSelect();
+        yield return null;
     }
+
+
 
     void AnimationAttackPlay()
     {
@@ -91,8 +127,12 @@ public class EnemyStatus : MonoBehaviour
     }
     IEnumerator DestroyObject()
     {
+        IsDestroy = true;
         yield return new WaitForSeconds(0.5f);
+        battle_manager_script.EnemyTurnFallDown(this);
         Destroy(this.gameObject);
+        battle_manager_script.ButtonAllValidity();
+        battle_manager_script.AutoSelect();
     }
-    
+
 }

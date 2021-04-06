@@ -10,6 +10,8 @@ public class EnemyFightSetScript : MonoBehaviour
     public float[] HP;
     public float[] Attack;
     public float[] Defense;
+    public float[] AttackSpeed;
+    public int[] InitTurnCount;
     public Sprite[] Image;
     // Start is called before the first frame update
     void Start()

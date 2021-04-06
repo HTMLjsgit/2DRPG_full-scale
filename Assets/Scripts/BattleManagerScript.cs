@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using System.Linq;
 
 public class BattleManagerScript : MonoBehaviour
 {
@@ -20,27 +22,30 @@ public class BattleManagerScript : MonoBehaviour
     Vector2 MoveToSliderPosition;
     public GameObject MoveToSliderObject;
     public GameObject PlayerSliderCanvas;
+    public Button[] ButtonAll;
+    public bool operation_mode = true;
     // Start is called before the first frame update
     void Start()
     {
         game_manager_script = GameObject.FindGameObjectWithTag("GameController").gameObject.GetComponent<GameManagerScript>();
         FightEnemyCreate.fight_enemy_create.Create(game_manager_script);
+        int x = 0;
         foreach (Transform t in FightEnemyCreate.fight_enemy_create.GetComponentInChildren<Transform>())
         {
-
+            enemy_status = t.GetComponent<EnemyStatus>();
+            enemy_status.MyID = x;
+            x++;
         }
         MoveToSliderPosition = MoveToSliderObject.transform.position;
 
         Player = GameObject.FindWithTag("Player");
-        Enemy = GameObject.FindWithTag("enemy");
         player_status = Player.GetComponent<PlayerStatus>();
         PlayerSliderCanvas = game_manager_script.SliderPlayerDefaultBox;
-        enemy_status = Enemy.GetComponent<EnemyStatus>();
 
         PlayerSliderPosition = game_manager_script.SliderPlayerDefaultBox.transform.position;
         player_status.sliderHP.transform.position = MoveToSliderPosition;
         player_status.sliderHP.transform.SetParent(MoveToSliderObject.transform);
-
+        ButtonAllInvalid();
         //slider_hp.transform.SetParent(Canvas.transform);
         //SceneManager.sceneLoaded += SceneLoaded;
     }
@@ -51,7 +56,6 @@ public class BattleManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
     public void Finish(bool player_die)
     {
@@ -74,24 +78,103 @@ public class BattleManagerScript : MonoBehaviour
         player_status.sliderHP.transform.position = PlayerSliderPosition;
     }
 
+    public IEnumerator TimeTurnCheckAndAttackToPlayer(EnemyStatus enemy_status)
+    {
+        Debug.Log("何回も通ってる？");
+        enemy_status.AttackNow = true;
+        EnemyAttackFinishCheck();
+
+        //Trueだったら一秒まつ。
+        if (EnemyAttackCheckTurn(enemy_status))
+                {
+                    yield return new WaitForSeconds(1f);
+                };
+
+        //AutoSelect();
+        yield return null;
+    }
+
     public void AutoSelect()
     {
-        Debug.Log("AutoSelectされるはずうううううううううううううううう");
-        //セレクトしておく関数
-        UserActionButtons.transform.GetChild(0).GetComponent<Button>().Select();
+        ButtonAllValidity();
+        if (operation_mode)
+        {
+            //セレクトしておく関数
+            UserActionButtons.transform.GetChild(0).GetComponent<Button>().Select();
+        }
+
+    }
+
+    public IEnumerator AttackToAllEnemy()
+    {
+        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("enemy"))
+        {
+            yield return new WaitForSeconds(1f);
+            StartCoroutine(enemy.GetComponent<EnemyStatus>().AttackToPlayer());
+            AutoSelect();
+
+        }
+        yield return null;
     }
 
 
-    public void EnemyOrPlayerAttackCheck(EnemyStatus enemy_status_get)
+    public bool EnemyAttackCheckTurn(EnemyStatus enemy_status_get)
     {
-        float PlayerAttackSpeed = player_status.AttackSpeed;
-        float EnemyAttackSpeed = enemy_status_get.attack_speed;
-        if(PlayerAttackSpeed <= EnemyAttackSpeed)
+        //敵の攻撃できるか判定
+        if(enemy_status_get.MyTurn <= 0)
         {
+            //敵のターンが0以下だったら攻撃します。
+            StartCoroutine(enemy_status_get.AttackToPlayer());
+            enemy_status_get.MyTurn = enemy_status_get.InitTurn;
 
-            //もし敵の攻撃すピートがプレイヤーの攻撃スピードより速かったら
-            player_status.Attacked(enemy_status_get.Attack);
+            return true;
         }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void EnemyAttackFinishCheck()
+    {
+        Debug.Log("-----------------------------------");
+            if (GameObject.FindGameObjectsWithTag("enemy").Last().GetComponent<EnemyStatus>().AttackNow == true)
+            {
+                Debug.Log("MYIDDDDDDDDDDDDDDDDDDDDDDDDDdd");
+            //敵の攻撃が終わったかどうかを判断する関数
+                AutoSelect();
+                foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("enemy"))
+                {
+                    enemy.GetComponent<EnemyStatus>().AttackNow = false;
+
+                }
+            }
+
+    }
+
+    public void EnemyTurnFallDown(EnemyStatus enemy_status)
+    {
+            if (enemy_status.MyTurn > 0)
+            {
+                enemy_status.MyTurn--;
+            }
+            else
+            {
+
+            }
+            enemy_status.EnemyTurnText.GetComponent<Text>().text = "残りのターン: " + enemy_status.MyTurn.ToString();
+
+    }
+
+
+    public void EnemySpeedAttackCheck(EnemyStatus enemy_status)
+    {
+        if(enemy_status.attack_speed > player_status.AttackSpeed)
+        {
+            StartCoroutine(enemy_status.AttackToPlayer());
+            enemy_status.enemy_first_attack = true;
+        }
+        AutoSelect();
     }
     IEnumerator GameSceneMove(string SceneName)
     {
@@ -109,8 +192,27 @@ public class BattleManagerScript : MonoBehaviour
     }
 
     public void SceneLoaded(Scene scene, LoadSceneMode mode) {
-        Debug.Log("heloooooooooooooooo");
         game_manager_script.slider_hp.transform.SetParent(null);
         SceneManager.sceneLoaded -= SceneLoaded;
+    }
+    public void ButtonAllValidity()
+    {
+        //Buttonすべてを有効
+        foreach (Button button in ButtonAll)
+        {
+            button.interactable = true;
+        }
+        operation_mode = true;
+    }
+
+    public void ButtonAllInvalid()
+    {
+        //Buttonすべてを無効
+        foreach (Button button in ButtonAll)
+        {
+            button.interactable = false;
+        }
+        operation_mode = false;
+
     }
 }

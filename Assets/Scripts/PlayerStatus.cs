@@ -31,10 +31,12 @@ public class PlayerStatus : MonoBehaviour
         SceneManager.sceneUnloaded += SceneUnLoaded;
         sliderHP = game_manager_script.slider_hp;
         sliderHP.value = HP / 100.0f;
-        MaxHP = HP;
-        InitHP = HP;
         InitDefense = Defense;
         InitAttack = Attack;
+        if(HP > MaxHP)
+        {
+            Debug.LogError("HP‚ªMAXHP‚æ‚è‚Í‚é‚©ã‚É‚È‚Á‚Ä‚¢‚Ü‚·B@‰º‚É‚È‚é‚æ‚¤‚ÉÝ’è‚µ‚Ä‚­‚¾‚³‚¢");
+        }
     }
     private void Awake()
     {
@@ -73,6 +75,8 @@ public class PlayerStatus : MonoBehaviour
     public void HPset(float set, GameObject itemObject = null)
     {
         Debug.Log(MaxHP >= set); // 100 <= 110
+        int Count = 0;
+        
         if (HP > 0 && MaxHP >= set)
         {
             HP = set;
@@ -84,10 +88,11 @@ public class PlayerStatus : MonoBehaviour
         {
             return;
         }
-        if(itemObject != null)
+        if (itemObject != null)
         {
+            //game_manager_script.BasicSelectObject(GameObject.FindWithTag("ItemImageAndBackground"));
+            GameObject.FindGameObjectsWithTag("ItemImageAndBackground")[Count].GetComponent<Selectable>().Select();
             Destroy(itemObject);
-            game_manager_script.BasicSelectObject(GameObject.FindWithTag("ItemImageAndBackground"));
         }
 
         sliderHP.value = HP / 100.0f;
@@ -95,6 +100,7 @@ public class PlayerStatus : MonoBehaviour
     public void Attacked(float Attacked)
     {
         //float damage = Mathf.Max(Attacked - defense);
+        BattleManagerScript battle_manager_script = GameObject.FindGameObjectWithTag("BattleManager").GetComponent<BattleManagerScript>();
         if (HP > 0)
         {
             float Damage = Defense - Attacked;
@@ -104,14 +110,14 @@ public class PlayerStatus : MonoBehaviour
             }
             if (HP < 0)
             {
-                BattleManagerScript battle_manager_script = GameObject.FindGameObjectWithTag("BattleManager").GetComponent<BattleManagerScript>();
+                sliderHP.value = 0;
                 battle_manager_script.Finish(player_die: true);
 
             }
         }
         else
         {
-            BattleManagerScript battle_manager_script = GameObject.FindGameObjectWithTag("BattleManager").GetComponent<BattleManagerScript>();
+            sliderHP.value = 0;
             battle_manager_script.Finish(player_die: true);
         }
         sliderHP.value = HP / 100.0f;

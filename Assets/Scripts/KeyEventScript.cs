@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 public class KeyEventScript : MonoBehaviour
 {
     public KeyCode MenuDisplayKeyCode;
@@ -79,13 +80,14 @@ public class KeyEventScript : MonoBehaviour
 
     public void ItemMenuShow() {
         SceneName = this.gameObject.GetComponent<GameManagerScript>().SceneName;
-        GameObject[] ItemImageAndBackground = GameObject.FindGameObjectsWithTag("ItemImageAndBackground");
-        Debug.Log(SceneName);
+        Debug.Log("開いた！！！！！！！！");
         int ret = Array.IndexOf(UnDisplaySceneName, SceneName);  //現在のシーンと表示したくないシーンがあったら
         if (ret < 0)
             {
-                ItemMenuDisplay = !item_show_menu_toggle.isOn;
-                if (!ItemMenuDisplay)
+            Debug.Log("シーンネームでバグってんじぇねぇの？");
+            ItemMenuDisplay = !item_show_menu_toggle.isOn; //先にisOnする
+         
+            if (!ItemMenuDisplay)
                 {
                     player_move_controller.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                 }
@@ -98,14 +100,18 @@ public class KeyEventScript : MonoBehaviour
                     ItemAll.GetComponent<Toggle>().isOn = ItemMenuDisplay;
 
                 }
-
+                GameObject[] ItemImageAndBackground = GameObject.FindGameObjectsWithTag("ItemImageAndBackground");
+                Debug.Log( "I am " + GameObject.FindGameObjectsWithTag("ItemImageAndBackground").Length);
                 ItemAll.GetComponent<Animator>().SetBool("show", ItemMenuDisplay);
                 player_move_controller.GetComponent<Animator>().enabled = !ItemMenuDisplay;
                 player_move_controller.moveMode = !ItemMenuDisplay;
-                if (game_manager_script.ItemShowImage.transform.childCount < 0 && ItemMenuDisplay)
+            if (ItemImageAndBackground.Length != 0)
                 {
-                    game_manager_script.BasicSelectObject(ItemImageAndBackground[0]);
-                }
+                //game_manager_script.BasicSelectObject(ItemImageAndBackground[0]);
+                ItemImageAndBackground[0].GetComponent<Selectable>().Select();
+                Debug.Log(EventSystem.current.currentSelectedGameObject);
+
+            }
         }
     }
 
