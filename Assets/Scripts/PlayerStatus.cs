@@ -17,6 +17,8 @@ public class PlayerStatus : MonoBehaviour
     public float Defense;
     public float Attack;
     public float AttackSpeed;
+    public float Damage;
+
     public Vector2 position;
     GameObject GameManager;
     GameManagerScript game_manager_script;
@@ -103,7 +105,7 @@ public class PlayerStatus : MonoBehaviour
         BattleManagerScript battle_manager_script = GameObject.FindGameObjectWithTag("BattleManager").GetComponent<BattleManagerScript>();
         if (HP > 0)
         {
-            float Damage = Defense - Attacked;
+            Damage = Defense - Attacked;
             if(Damage < 0)
             {
                 HP = HP + Damage;

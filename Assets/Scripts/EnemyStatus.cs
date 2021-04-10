@@ -12,6 +12,7 @@ public class EnemyStatus : MonoBehaviour
     public string enemyName;
     public bool onSelect;
     public KeyCode get_key;
+    public float Damage;
     public bool enemy_first_attack = false;
     GameObject Player;
     PlayerStatus player_status;
@@ -75,7 +76,15 @@ public class EnemyStatus : MonoBehaviour
         //float damage = Mathf.Max(Attacked - defense);
         if(HP > 0)
         {
-            HP -= Attack + defense;
+            Damage = defense - Attacked;
+            if (Damage < 0)
+            {
+                HP = HP + Damage;
+            }
+            else
+            {
+                HP = 0;
+            }
             AnimationAttackPlay();
 
         }
@@ -92,18 +101,21 @@ public class EnemyStatus : MonoBehaviour
         {
             if(enemy != null)
             {
+                EnemyStatus enemy_status = enemy.GetComponent<EnemyStatus>();
+
+                Debug.Log("なんかいとおってますか？");
                 battle_manager_script.EnemyTurnFallDown(enemy.GetComponent<EnemyStatus>());
                 yield return new WaitForSeconds(1f);
-                Debug.Log("アッタクされるはずだが");
                 StartCoroutine(battle_manager_script.TimeTurnCheckAndAttackToPlayer(enemy.GetComponent<EnemyStatus>()));
-
+                if (enemy_status.HP <= 0)
+                {
+                    kill_all_enemy_check_script.kill_all_enemy_script.Check();
+                    StartCoroutine(enemy_status.DestroyObject());
+                    yield return null;
+                }
             }
         }
-        if (HP < 0)
-        {
-            kill_all_enemy_check_script.kill_all_enemy_script.Check();
-            StartCoroutine(DestroyObject());
-        }
+ 
     }
 
     public IEnumerator AttackToPlayer()
@@ -125,7 +137,7 @@ public class EnemyStatus : MonoBehaviour
         AttackedAnimation.GetComponent<Animator>().SetBool("play", true);
 
     }
-    IEnumerator DestroyObject()
+    public IEnumerator DestroyObject()
     {
         IsDestroy = true;
         yield return new WaitForSeconds(0.5f);

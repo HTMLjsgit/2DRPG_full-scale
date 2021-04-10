@@ -16,7 +16,7 @@ public class ItemAddScript : MonoBehaviour
     public float itemAttackSpeed;
     public float itemLifeSteal;
     public float itemHPInCrease;
-    public ItemList.elementType etype;
+    public ItemList.elementType ElementType;
     public ItemList.ItemType ItemType;
     public bool basic_mode;
     GameObject ItemController;
@@ -43,7 +43,7 @@ public class ItemAddScript : MonoBehaviour
         {
             ItemAdd_to_ItemDatabase();
         }
-        itemList.Add(new ItemList(ItemName, itemID, itemDesc, itemPower, itemDefense, speed, itemLifeSteal, itemHPInCrease, etype, ItemType, itemIcon));
+        itemList.Add(new ItemList(ItemName, itemID, itemDesc, itemPower, itemDefense, speed, itemLifeSteal, itemHPInCrease, ElementType, ItemType, itemIcon));
         ItemShow();
         //ItemImage = ItemImageGetScript.item_get.gameObject;
     }
@@ -70,7 +70,7 @@ public class ItemAddScript : MonoBehaviour
         {
             if(once_mode == false)
             {
-                ItemController.GetComponent<ItemDatabase>().ItemAdd(ItemName, itemID, itemDesc, itemPower, itemDefense, speed, itemLifeSteal,itemHPInCrease, etype, ItemType, itemIcon);
+                ItemController.GetComponent<ItemDatabase>().ItemAdd(ItemName, itemID, itemDesc, itemPower, itemDefense, speed, itemLifeSteal,itemHPInCrease, ElementType, ItemType, itemIcon);
             }
             else
             {
@@ -79,7 +79,7 @@ public class ItemAddScript : MonoBehaviour
         }
         else
         {
-            ItemController.GetComponent<ItemDatabase>().ItemAdd(ItemName, itemID, itemDesc, itemPower, itemDefense, speed, itemLifeSteal, itemHPInCrease, etype, ItemType, itemIcon);
+            ItemController.GetComponent<ItemDatabase>().ItemAdd(ItemName, itemID, itemDesc, itemPower, itemDefense, speed, itemLifeSteal, itemHPInCrease, ElementType, ItemType, itemIcon);
         }
         
     }

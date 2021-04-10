@@ -10,11 +10,15 @@ public class playerColliderProgramScript : MonoBehaviour
     public string MoveToPlaceName;
     GameObject target;
     public KeyCode keycode;
+    TextControllerScript text_controller_script;
+    public List<string> messages;
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerScript>();
+        text_controller_script = GameObject.FindWithTag("TextController").GetComponent<TextControllerScript>();
         SceneManager.sceneLoaded += SceneLoaded;
+
     }
     public void SceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -32,8 +36,10 @@ public class playerColliderProgramScript : MonoBehaviour
         {
             if (Input.GetKeyDown(keycode))
             {
-                target.gameObject.GetComponent<ItemAddScript>().ItemAdd_to_ItemDatabase();
-                target.gameObject.GetComponent<ItemAddScript>().ObjectDelete();
+                ItemAddScript item_add_script = target.gameObject.GetComponent<ItemAddScript>();
+                item_add_script.ItemAdd_to_ItemDatabase();
+                text_controller_script.TextWrite(messages, item_add_script.ItemName);
+                item_add_script.ObjectDelete();
                 target = null;
             }
         }

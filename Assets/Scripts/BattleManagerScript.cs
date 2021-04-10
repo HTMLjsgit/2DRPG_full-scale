@@ -154,6 +154,7 @@ public class BattleManagerScript : MonoBehaviour
 
     public void EnemyTurnFallDown(EnemyStatus enemy_status)
     {
+
             if (enemy_status.MyTurn > 0)
             {
                 enemy_status.MyTurn--;
@@ -163,7 +164,7 @@ public class BattleManagerScript : MonoBehaviour
 
             }
             enemy_status.EnemyTurnText.GetComponent<Text>().text = "残りのターン: " + enemy_status.MyTurn.ToString();
-
+            
     }
 
 
@@ -198,6 +199,7 @@ public class BattleManagerScript : MonoBehaviour
     public void ButtonAllValidity()
     {
         //Buttonすべてを有効
+
         foreach (Button button in ButtonAll)
         {
             button.interactable = true;
@@ -208,6 +210,10 @@ public class BattleManagerScript : MonoBehaviour
     public void ButtonAllInvalid()
     {
         //Buttonすべてを無効
+        if (EventSystem.current.currentSelectedGameObject != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
         foreach (Button button in ButtonAll)
         {
             button.interactable = false;

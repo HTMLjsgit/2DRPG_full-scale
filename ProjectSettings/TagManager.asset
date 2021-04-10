@@ -13,6 +13,7 @@ TagManager:
   - item
   - ItemImageAndBackground
   - HomeObject
+  - TextController
   layers:
   - Default
   - TransparentFX

@@ -80,11 +80,9 @@ public class KeyEventScript : MonoBehaviour
 
     public void ItemMenuShow() {
         SceneName = this.gameObject.GetComponent<GameManagerScript>().SceneName;
-        Debug.Log("開いた！！！！！！！！");
         int ret = Array.IndexOf(UnDisplaySceneName, SceneName);  //現在のシーンと表示したくないシーンがあったら
         if (ret < 0)
             {
-            Debug.Log("シーンネームでバグってんじぇねぇの？");
             ItemMenuDisplay = !item_show_menu_toggle.isOn; //先にisOnする
          
             if (!ItemMenuDisplay)
@@ -101,7 +99,6 @@ public class KeyEventScript : MonoBehaviour
 
                 }
                 GameObject[] ItemImageAndBackground = GameObject.FindGameObjectsWithTag("ItemImageAndBackground");
-                Debug.Log( "I am " + GameObject.FindGameObjectsWithTag("ItemImageAndBackground").Length);
                 ItemAll.GetComponent<Animator>().SetBool("show", ItemMenuDisplay);
                 player_move_controller.GetComponent<Animator>().enabled = !ItemMenuDisplay;
                 player_move_controller.moveMode = !ItemMenuDisplay;
@@ -109,8 +106,6 @@ public class KeyEventScript : MonoBehaviour
                 {
                 //game_manager_script.BasicSelectObject(ItemImageAndBackground[0]);
                 ItemImageAndBackground[0].GetComponent<Selectable>().Select();
-                Debug.Log(EventSystem.current.currentSelectedGameObject);
-
             }
         }
     }
